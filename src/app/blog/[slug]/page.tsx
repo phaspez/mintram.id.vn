@@ -3,11 +3,14 @@ import { wisp } from "@/lib/wisp";
 interface Params {
     slug: string;
 }
-export default async function BlogPost({
-                                           params: { slug },
-                                       }: {
-    params: Params;
-}) {
+
+type BlogPostProps = {
+    params: { slug: string };
+}
+
+
+export default async function BlogPost({params}: BlogPostProps) {
+    const { slug } = params;
     const result = await wisp.getPost(slug);
     if (!result.post) return null;
     const { title, publishedAt, createdAt, content, tags } = result.post;

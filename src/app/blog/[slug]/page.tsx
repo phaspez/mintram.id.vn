@@ -1,14 +1,22 @@
 import { wisp } from "@/lib/wisp";
 
 type BlogPostProps = {
-    params: { slug: string };
-}
+    params: {
+        slug: string;
+    };
+};
 
-export default async function BlogPost({params}: BlogPostProps) {
+export default async function BlogPost({ params }: BlogPostProps) {
     const { slug } = params;
+
     const result = await wisp.getPost(slug);
-    if (!result.post) return null;
+
+    if (!result.post) {
+        return <div>Post not found</div>;
+    }
+
     const { title, publishedAt, createdAt, content, tags } = result.post;
+
     return (
         <div>
             <div className="prose lg:prose-xl dark:prose-invert mx-auto lg:prose-h1:text-4xl mb-10 lg:mt-20 break-words">
@@ -21,7 +29,7 @@ export default async function BlogPost({params}: BlogPostProps) {
                 />
                 <div className="mt-10 opacity-40 text-sm">
                     {tags.map((tag) => (
-                        <span key={tag.name}>#{tag.name}</span>
+                        <span key={tag.name} className="mr-2">#{tag.name}</span>
                     ))}
                 </div>
                 <div className="text-sm opacity-40 mt-4">

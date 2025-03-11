@@ -1,13 +1,8 @@
 import { wisp } from "@/lib/wisp";
 
-interface Params {
-    slug: string;
-}
-
 type BlogPostProps = {
     params: { slug: string };
 }
-
 
 export default async function BlogPost({params}: BlogPostProps) {
     const { slug } = params;

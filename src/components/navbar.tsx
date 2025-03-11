@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SVGProps } from "react";
 import {ThemeToggle} from "@/components/theme-toggle";
 
 export default function NavBar() {

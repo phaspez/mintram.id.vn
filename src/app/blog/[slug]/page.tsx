@@ -1,5 +1,4 @@
 import { wisp } from "@/lib/wisp";
-import Link from "next/link";
 
 interface Params {
     slug: string;

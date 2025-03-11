@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
+import { ThemeProvider } from "@/components/theme-provider"
+import {ThemeToggle} from "@/components/theme-toggle";
+import NavBar from "@/components/navbar";
+
+const jetbrains = JetBrains_Mono(
+    {subsets: ['latin']})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +35,15 @@ export default function RootLayout({
     <SpeedInsights />
     <Analytics />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jetbrains.className} antialiased`}
       >
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeToggle />
+        <NavBar />
+      <div className="px-4 md:px-8 lg:px-26 xl:px-40 pt-16">
         {children}
+      </div>
+      </ThemeProvider>
       </body>
     </html>
   );

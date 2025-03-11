@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Secrets from "@/components/secrets";
 
 export const metadata = {
     title: "mintram | inthemiddle",
@@ -12,10 +13,10 @@ export const metadata = {
 
 
 export default function Home() {
-    console.log("Looking at the source code i see:) ")
-
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <>
+      <Secrets />
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16 sm:p-20">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
           <div className="grid">
               <Image className="rounded-2xl justify-self-center" src="/img.png" alt="spike" width={400} height={400}/>
@@ -28,10 +29,11 @@ export default function Home() {
               </h1>
               <p>I made this shit in like 10 minutes while I&apos;m commiting to other things.</p>
               <p>Cool things will be here in the future.</p>
-              <p>Shall I make a blog, or port my web games here?</p>
+              <p>Shall I make a blog (doing it lol), or port my web games here?</p>
               <p>Or not. I&apos;m lazy.</p>
           </div>
       </main>
     </div>
+      </>
   );
 }

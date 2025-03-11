@@ -1,13 +1,11 @@
 import { wisp } from "@/lib/wisp";
 
-type BlogPostProps = {
-    params: {
-        slug: string;
-    };
-};
+type BlogPostProps = Promise<{
+    slug: string;
+}>;
 
-export default async function BlogPost({ params }: BlogPostProps) {
-    const { slug } = params;
+export default async function BlogPost(props: { params: BlogPostProps }) {
+    const { slug } = await props.params;
 
     const result = await wisp.getPost(slug);
 

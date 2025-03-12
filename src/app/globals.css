@@ -1,7 +1,9 @@
+@layer theme, base, components, utilities;
+
 @import "tailwindcss";
+@import "tailwindcss/utilities.css" layer(utilities);
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -1,6 +1,6 @@
 import { wisp } from "@/lib/wisp";
 import { cache, Suspense, use } from "react";
-import { GetPostsResult } from "@wisp-cms/client";
+
 import {
   Card,
   CardContent,

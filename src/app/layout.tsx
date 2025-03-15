@@ -30,12 +30,12 @@ export default function RootLayout({
       <Analytics />
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} ${jetbrains.className} antialiased prose dark:prose-invert overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jetbrains.className} w-screen antialiased prose dark:prose-invert overflow-x-hidden`}
       >
         <ThemeProvider attribute="class" defaultTheme="system">
           <ThemeToggle />
           <NavBar />
-          <div className="w-screen min-h-screen px-4 md:px-10 lg:px-24 xl:px-32 mt-20">
+          <div className="w-screen items-center min-h-screen px-4 md:px-10 lg:px-24 xl:px-32 mt-20">
             {children}
           </div>
           <Footer />

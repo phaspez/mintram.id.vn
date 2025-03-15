@@ -1,7 +1,10 @@
+"use server";
+
 import { wisp } from "@/lib/wisp";
 import type { Metadata } from "next";
 import { cache } from "react";
 import Link from "next/link";
+import SanitizedBlog from "@/app/blog/[slug]/sanitize-blog";
 
 type BlogPostProps = Promise<{
   slug: string;
@@ -56,17 +59,13 @@ export default async function BlogPost(props: { params: BlogPostProps }) {
   const { title, publishedAt, createdAt, content, tags } = result.post;
 
   return (
-    <div>
-      <div className="prose lg:prose-xl dark:prose-invert mx-auto lg:prose-h1:text-4xl mb-10 break-words">
+    <div className="w-full">
+      <div className="mx-2 w-full mb-10 break-words">
         <Link href="/blog">
           <small>Back to Blog</small>
         </Link>
         <h1>{title}</h1>
-        <article
-          dangerouslySetInnerHTML={{
-            __html: content,
-          }}
-        />
+        <SanitizedBlog content={content} />
         <div className="mt-10 opacity-40 text-sm">
           {tags.map((tag) => (
             <span key={tag.name} className="mr-2">

@@ -6,6 +6,7 @@ import { cache } from "react";
 import Link from "next/link";
 import SanitizedBlog from "@/app/blog/[slug]/sanitize-blog";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
+import { IoChevronBack } from "react-icons/io5";
 
 type BlogPostProps = Promise<{
   slug: string;
@@ -71,8 +72,9 @@ export default async function BlogPost(props: { params: BlogPostProps }) {
   return (
     <div className="w-full">
       <div className="mx-2 w-full mb-10 break-words">
-        <Link href="/blog">
-          <small>Back to Blog</small>
+        <Link href="/blog" className="flex items-center gap-2 pb-4">
+          <IoChevronBack />
+          Back to Blog
         </Link>
         <h1>{title}</h1>
         <SanitizedBlog content={content} />

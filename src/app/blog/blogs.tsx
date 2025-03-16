@@ -1,5 +1,5 @@
 import { wisp } from "@/lib/wisp";
-import { cache, Suspense, use } from "react";
+import { Suspense } from "react";
 
 import {
   Card,
@@ -11,46 +11,55 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { revalidatePath } from "next/cache";
+import { Button } from "@/components/ui/button";
+import { MdOutlineRefresh } from "react-icons/md";
 
 export function BlogsLoading() {
   return (
     <div className="grid grid-cols-1 gap-16 lg:gap-8 lg:grid-cols-2 md:my-16 my-8">
-      {Array(5).map((val, idx) => (
-        <Card key={idx} className="overflow-hidden place-content-center">
-          <div className="flex flex-col items-center md:flex-row">
-            <Skeleton className="h-[400px] w-[300px]" />
-            <div className="md:w-3/5">
-              <CardHeader>
-                <CardTitle>
-                  <Skeleton className="h-4 w-[250px]" />
-                </CardTitle>
-                <CardDescription className="italic text-muted-foreground">
-                  <Skeleton className="h-4 w-[250px]" />
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-6 w-[250px]" />
-                <Skeleton className="h-6 w-[250px]" />
-                <Skeleton className="h-6 w-[250px]" />
-              </CardContent>
+      {Array(4)
+        .fill(0)
+        .map((_, idx) => (
+          <Card key={idx} className="overflow-hidden place-content-center">
+            <div className="flex flex-col items-center md:flex-row">
+              <Skeleton className="h-[200px] w-[300px]" />
+              <div className="md:w-3/5">
+                <CardHeader>
+                  <CardTitle>
+                    <Skeleton className="h-4 w-[250px]" />
+                  </CardTitle>
+                  <CardDescription className="italic text-muted-foreground">
+                    <Skeleton className="h-4 w-[250px]" />
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-3">
+                    <Skeleton className="h-6 w-[250px] p-2" />
+                    <Skeleton className="h-6 w-[250px] p-2" />
+                    <Skeleton className="h-6 w-[250px] p-2" />
+                  </div>
+                </CardContent>
+              </div>
             </div>
-          </div>
-        </Card>
-      ))}
+          </Card>
+        ))}
     </div>
   );
 }
 
-export function BlogsError() {
-  return <div>Error loading blogs</div>;
+export async function refreshPosts() {
+  "use server";
+  revalidatePath("/blog");
+  return { success: true };
 }
 
-const fetchPosts = cache(() => {
-  return wisp.getPosts({ limit: 6 });
-});
+async function getPosts() {
+  return await wisp.getPosts({ limit: 6 });
+}
 
-export function BlogsContent() {
-  const results = use(fetchPosts());
+export async function BlogsContent() {
+  const results = await getPosts();
 
   return (
     <div className="grid grid-cols-1 gap-16 lg:gap-8 lg:grid-cols-2 md:my-16 my-8">
@@ -107,8 +116,23 @@ export function BlogsContent() {
 
 export default function Blogs() {
   return (
-    <Suspense fallback={<BlogsLoading />}>
-      <BlogsContent />
-    </Suspense>
+    <>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">Blog</h1>
+        <form
+          action={async () => {
+            "use server";
+            await refreshPosts();
+          }}
+        >
+          <Button type="submit">
+            <MdOutlineRefresh />
+          </Button>
+        </form>
+      </div>
+      <Suspense fallback={<BlogsLoading />}>
+        <BlogsContent />
+      </Suspense>
+    </>
   );
 }

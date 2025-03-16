@@ -1,9 +1,33 @@
 import Blogs from "@/app/blog/blogs";
+import Link from "next/link";
+import { IoChevronBack } from "react-icons/io5";
+
+export const metadata = {
+  title: "blog | mintram",
+  description: "blog where i write stuff.",
+  openGraph: {
+    title: "blog | mintram",
+    description: "i like to make software.",
+    type: "website",
+    url: "https://mintram.id.vn",
+    images: [
+      {
+        url: "/webcover.png",
+        width: 400,
+        height: 400,
+        alt: "mintram, a website about everything, and nothing",
+      },
+    ],
+  },
+};
 
 export default async function Home() {
   return (
     <div>
-      <h1 className="text-3xl font-bold">Blogs</h1>
+      <Link href="/" className="flex items-center gap-2 pb-4">
+        <IoChevronBack />
+        Back to Homepage
+      </Link>
       <Blogs />
     </div>
   );

@@ -9,12 +9,12 @@ export default function Footer() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-10">
         <div className="border-r-2 pl-2 pr-4 h-full">
-          <h3 className="hidden md:block pt-2 mt-0">will code for money</h3>
+          <h3 className="hidden md:block pt-2 mt-0">will code for food</h3>
           <small className="text-center text-wrap break-all">
             Tri-Min Tram | minb2207541[at]student[dot]ctu.edu.vn
           </small>
         </div>
-        <nav className="flex flex-row-reverse gap-x-4 text-xl md:text-3xl pt-2 pr-4 pb-4">
+        <nav className="flex flex-row-reverse gap-x-4 text-xl md:text-3xl pt-2 pl-2 pr-4 pb-4">
           <Link
             href="https://www.linkedin.com/in/trimin-tram/"
             aria-label="linkedin"

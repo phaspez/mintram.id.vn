@@ -93,6 +93,7 @@ export default function NavBar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <ThemeToggle />
         </nav>
       </div>
     </header>

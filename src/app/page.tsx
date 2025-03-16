@@ -64,7 +64,7 @@ export default function Home() {
               >
                 React | React Native | Next.js | Tailwind CSS | JS | TS |
                 Node.js | Express | Vue | Python | FastAPI | Nest.js |
-                PostgreSQL | MongoDB | Kubernetes | Git |
+                PostgreSQL | MongoDB | Git |
               </Marquee>
             </article>
           </div>

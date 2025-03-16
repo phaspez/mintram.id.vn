@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { cache } from "react";
 import Link from "next/link";
 import SanitizedBlog from "@/app/blog/[slug]/sanitize-blog";
+import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 type BlogPostProps = Promise<{
   slug: string;
@@ -29,19 +30,28 @@ export async function generateMetadata({
     };
   }
 
-  const { title, content } = result.post;
-
+  const { title, content, image, description, tags } = result.post;
+  const tagsName = tags.map((tag) => tag.name);
   const plainTextContent = content.replace(/<[^>]*>/g, "");
-  const description = plainTextContent.substring(0, 157) + "...";
+  const desc = description || plainTextContent.substring(0, 157) + "...";
+  const openGraph: OpenGraph = {
+    title,
+    description: desc,
+    type: "article",
+    tags: tagsName,
+    url: `https://mintram.id.vn/blog/${slug}`,
+    images: [
+      {
+        url: image || "",
+        alt: `Cover image for blog post titled ${title}`,
+      },
+    ],
+  };
 
   return {
-    title: `${title} | mintraminthemiddle`,
+    title: `${title} | blog | mintram`,
     description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-    },
+    openGraph,
   };
 }
 

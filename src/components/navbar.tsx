@@ -29,25 +29,18 @@ export default function NavBar() {
             Blog
           </Link>
           <Link
+            href="/project"
+            className="text-sm font-medium hover:text-gray-900 dark:hover:text-gray-50"
+            prefetch={false}
+          >
+            Project
+          </Link>
+          <Link
             href="https://phaspez.itch.io"
             className="text-sm font-medium hover:text-gray-900 dark:hover:text-gray-50"
           >
             Game
           </Link>
-          {/*<Link*/}
-          {/*  href="/projects"*/}
-          {/*  className="text-sm font-medium hover:text-gray-900 dark:hover:text-gray-50"*/}
-          {/*  prefetch={false}*/}
-          {/*>*/}
-          {/*  Projects*/}
-          {/*</Link>*/}
-          {/*<Link*/}
-          {/*  href="/games"*/}
-          {/*  className="text-sm font-medium hover:text-gray-900 dark:hover:text-gray-50"*/}
-          {/*  prefetch={false}*/}
-          {/*>*/}
-          {/*  Games*/}
-          {/*</Link>*/}
           <Link
             href="#contact"
             className="text-sm font-medium hover:text-gray-900 dark:hover:text-gray-50"
@@ -75,6 +68,15 @@ export default function NavBar() {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
+                  href="/project"
+                  aria-label="project"
+                  className="not-prose"
+                >
+                  Project
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link
                   href="https://phaspez.itch.io"
                   aria-label="game"
                   className="not-prose"
@@ -88,7 +90,7 @@ export default function NavBar() {
                   aria-label="hire me please"
                   className="not-prose"
                 >
-                  Hỉre me plz
+                  Hire me plz
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Secrets from "@/components/secrets";
 import { lazy } from "react";
-import Marquee from "react-fast-marquee";
 
 const Decor = lazy(() => import("@/app/decor"));
 
@@ -55,17 +54,6 @@ export default function Home() {
               </p>
               <p>i like to build things. with code.</p>
               <p>feel free to dig around and see what you&apos;d like.</p>
-            </article>
-            <article>
-              <p>things i know</p>
-              <Marquee
-                speed={20}
-                className="border-x-6 border-gray-600 dark:border-gray-400 text-bold text-xl text-gray-600 dark:text-gray-400"
-              >
-                React | React Native | Next.js | Tailwind CSS | JS | TS | Node |
-                Express | Python | FastAPI | Nest | Godot | PostgreSQL | MongoDB
-                | Git |
-              </Marquee>
             </article>
           </div>
         </main>

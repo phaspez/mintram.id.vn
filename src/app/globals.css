@@ -126,3 +126,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.oversize {
+  @apply pl-4 text-black/20 dark:text-white/20;
+  font-size: 200px;
+}
+
+.oversize-2 {
+  @apply pl-4 text-black/20 dark:text-white/20;
+  font-size: 140px;
+}

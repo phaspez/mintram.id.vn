@@ -7,6 +7,7 @@ import Link from "next/link";
 import SanitizedBlog from "@/app/blog/[slug]/sanitize-blog";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 import { IoChevronBack } from "react-icons/io5";
+import { notFound } from "next/navigation";
 
 type BlogPostProps = Promise<{
   slug: string;
@@ -62,9 +63,7 @@ export default async function BlogPost(props: { params: BlogPostProps }) {
   const result = await fetchPost(slug);
 
   if (!result.post) {
-    throw Error(
-      "Post not found. Please try again later. Make sure your URL is valid",
-    );
+    notFound();
   }
 
   const { title, publishedAt, createdAt, content, tags } = result.post;

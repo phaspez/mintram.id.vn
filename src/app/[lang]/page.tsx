@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Secrets from "@/components/secrets";
 import { lazy } from "react";
+import { type langOption, getDictionary } from "./dictionaries";
 
-const Decor = lazy(() => import("@/app/decor"));
+const Decor = lazy(() => import("@/app/[lang]/decor"));
 
 export const metadata = {
   title: "mintram | inthemiddle",
@@ -23,7 +24,14 @@ export const metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: langOption }>;
+}) {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
+
   return (
     <>
       <Secrets />
@@ -47,13 +55,10 @@ export default function Home() {
               <span className="text-amber-600">middle</span>
             </h1>
             <article>
-              <p>hi. i&apos;m trimin.</p>
-              <p>
-                a mediocre person, with a PhD on Google search and enslaving
-                LLMs with weird questions.
-              </p>
-              <p>i like to build things. with code.</p>
-              <p>feel free to dig around and see what you&apos;d like.</p>
+              <p>{dictionary.home.intro1}</p>
+              <p>{dictionary.home.intro2}</p>
+              <p>{dictionary.home.intro3}</p>
+              <p>{dictionary.home.intro4}</p>
             </article>
           </div>
         </main>

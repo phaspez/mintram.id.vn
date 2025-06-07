@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa6";
 import { Mail } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer
       id={"contact"}
@@ -10,9 +14,9 @@ export default function Footer() {
     >
       <div className="mx-auto flex max-w-7xl items-center break-all justify-between px-4 md:px-6 py-10">
         <div className="border-r-2 pl-2 pr-4 h-full">
-          <h3 className="hidden md:block pt-2 mt-0">will code for food</h3>
+          <h3 className="hidden md:block pt-2 mt-0">{t("footer.title")}</h3>
           <small className="text-center text-wrap break-all">
-            Tri-Min Tram
+            {t("footer.name")}
           </small>
         </div>
         <nav className="flex flex-row-reverse gap-x-4 text-xl md:text-3xl pl-2 pr-4 items-stretch">

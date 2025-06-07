@@ -3,7 +3,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { Home, Newspaper } from "lucide-react";
 import DecorNotFound from "@/components/decor-not-found";
 
-export default function NotFound() {
+export default async function NotFound() {
   return (
     <div>
       <div className="flex gap-2">

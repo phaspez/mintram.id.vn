@@ -1,10 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
+import { langOption, getDictionary } from "@/app/[lang]/dictionaries";
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: langOption }>;
+}) {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
   return (
     <div>
-      <h1 className="text-3xl font-bold">Cool stuff I&apos;ve made</h1>
+      <h1 className="text-3xl font-bold">{dictionary.projects.title}</h1>
 
       <div className="grid gap-4">
         <article className="lg:columns-2 columns-1 bg-orange-100 dark:bg-orange-600/20 p-4 rounded-md">
@@ -13,19 +20,9 @@ export default async function Home() {
               CAAS - Chat-Voice Admissions Advisory Support
             </h2>
             <Link href="https://caas.mintram.id.vn">caas.mintram.id.vn</Link>
-            <p>
-              A chatbot application where you can ask for admission details from
-              a college institution.
-            </p>
-            <p>
-              There would be a backend for training models and a database of FAQ
-              from the institution. But it isn&apos;t deployed yet, for now, it
-              forwarded all questions to an LLM.
-            </p>
-            <p>
-              Front-end → CAAS system (return related information) → forward it
-              to Gemini
-            </p>
+            <p>{dictionary.projects.caas.desc1}</p>
+            <p>{dictionary.projects.caas.desc2}</p>
+            <p>{dictionary.projects.caas.desc3}</p>
           </div>
           <div className="flex justify-center items-center h-full">
             <Image
@@ -53,20 +50,9 @@ export default async function Home() {
             <Link href="https://phaspez.itch.io/terraship">
               phaspez.itch.io/terraship
             </Link>
-            <p>
-              A hardcore space shooter game with some route-like twists, destroy
-              rocks and enemies coming torward you to earn points, with a
-              campaign-based gameplay. Each level is procedurally generated with
-              increasing difficulty.
-            </p>
-            <p>
-              There&apos;s an online leaderboard, multi-platform support
-              (Web/Android/Windows), and localization support, too.
-            </p>
-            <p>
-              Probably my most feature completed game so far. Making games is so
-              exhausting!
-            </p>
+            <p>{dictionary.projects.terraship.desc1}</p>
+            <p>{dictionary.projects.terraship.desc2}</p>
+            <p>{dictionary.projects.terraship.desc3}</p>
           </div>
         </article>
       </div>

@@ -1,0 +1,38 @@
+{
+  "home": {
+    "intro1": "hi im trimin",
+    "intro2": "a mediocre person, with a PhD on Google search and enslaving LLMs with weird questions.",
+    "intro3": "i like to build things. with code.",
+    "intro4": "feel free to dig around and see what you'd like."
+  },
+  "navbar": {
+    "blog": "blog",
+    "project": "project",
+    "about": "about",
+    "game": "game",
+    "hire": "hire me plz"
+  },
+  "footer": {
+    "title": "will code for food",
+    "name": "Tri-Min Tram"
+  },
+  "navigation": {
+    "backhome": "Back to Homepage",
+    "backblog": "Back to Blog",
+    "translationwarning": "Only UI elements are translated, not blog posts though.",
+    "toc": "Table of Contents"
+  },
+  "projects": {
+    "title": "Cool stuff I've made",
+    "caas": {
+      "desc1": "A chatbot application where you can ask for admission details from a college institution.",
+      "desc2": "There would be a backend for training models and a database of FAQ from the institution. But it isn't deployed yet, for now, it forwarded all questions to an LLM.",
+      "desc3": "Front-end → CAAS system (return related information) → forward it to Gemini"
+    },
+    "terraship": {
+      "desc1": "A hardcore space shooter game with some rogue-like twists, destroy rocks and enemies coming toward you to earn points, with a campaign-based gameplay. Each level is procedurally generated with increasing difficulty.",
+      "desc2": "There's an online leaderboard, multi-platform support (Web/Android/Windows), and localization support, too.",
+      "desc3": "Probably my most feature completed game so far. Making games is so exhausting!"
+    }
+  }
+}

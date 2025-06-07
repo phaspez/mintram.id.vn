@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface SanitizedBlogProps {
   content: string;
@@ -14,36 +15,30 @@ interface TocItem {
 }
 
 export default function SanitizedBlog({ content }: SanitizedBlogProps) {
+  const { t } = useTranslation();
   const [sanitizedContent, setSanitizedContent] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     DOMPurify.addHook("afterSanitizeAttributes", function (node) {
-      // If the node is an image
       if (node.tagName === "IMG") {
-        // Add responsive image classes
         node.className = (node.className || "") + " max-w-full h-auto";
 
-        // Force image to respect container width
         node.setAttribute("style", "max-width: 100%; height: auto;");
       }
     });
 
-    // Sanitize the content
     const cleanContent = DOMPurify.sanitize(content);
     setSanitizedContent(cleanContent);
 
-    // Create a temporary div to parse headings
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = cleanContent;
 
-    // Find all headings
     const headings = tempDiv.querySelectorAll("h1, h2, h3, h4, h5, h6");
     const tocItems: TocItem[] = [];
 
     headings.forEach((heading, index) => {
-      // Create an ID if one doesn't exist
       const id = heading.id || `heading-${index}`;
       heading.id = id;
 
@@ -54,26 +49,22 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
       });
     });
 
-    // Update the sanitized content with the new IDs
     setSanitizedContent(tempDiv.innerHTML);
     setToc(tocItems);
   }, [content]);
 
-  // Update real DOM element IDs after rendering
   useEffect(() => {
     if (contentRef.current && toc.length > 0) {
       const headings = contentRef.current.querySelectorAll(
         "h1, h2, h3, h4, h5, h6",
       );
 
-      // Apply IDs and add scroll padding
       headings.forEach((heading, index) => {
         if (index < toc.length) {
           heading.id = toc[index].id;
         }
       });
 
-      // Add CSS for scroll-margin-top
       if (!document.getElementById("scroll-margin-style")) {
         const style = document.createElement("style");
         style.id = "scroll-margin-style";
@@ -87,7 +78,6 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     }
   }, [sanitizedContent, toc]);
 
-  // Handle smooth scrolling with offset manually
   const handleTocClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string,
@@ -108,11 +98,13 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-8">
+    <div className="flex flex-col md:flex-row gap-8 pr-6">
       {toc.length > 0 && (
         <div className="md:w-1/4">
           <div className="sticky top-4 pt-2 md:pt-14 md:min-h-screen md:border-r-2">
-            <h3 className="text-lg font-semibold mb-2">Table of Contents</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              {t("navigation.toc")}
+            </h3>
             <nav className="">
               <ul className="space-y-1">
                 {toc.map((item) => (

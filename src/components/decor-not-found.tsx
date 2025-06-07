@@ -1,5 +1,5 @@
 import Marquee from "react-fast-marquee";
-import "@/app/decor.css";
+import "@/app/[lang]/decor.css";
 
 export default function DecorNotFound() {
   return (

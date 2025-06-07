@@ -1,0 +1,37 @@
+{
+  "home": {
+    "intro1": "xin chào tui là trimin",
+    "intro2": "một người tầm thường, có bằng tiến sĩ trong việc Google search và hỏi LLM những câu kì lạ.",
+    "intro3": "tui thích xây dựng thứ gì đó. với code.",
+    "intro4": "hãy phá trang web của tui."
+  },
+  "navbar": {
+    "blog": "bờ lốc",
+    "project": "dự án",
+    "game": "game",
+    "hire": "hãy cho tui job"
+  },
+  "footer": {
+    "title": "code để kiếm cơm",
+    "name": "Trầm Tri Min"
+  },
+  "navigation": {
+    "backhome": "Trở về trang chủ",
+    "backblog": "Trở về blog",
+    "translationwarning": "Chỉ giao diện được phiên dịch, bài blog thì không.",
+    "toc": "Mục lục"
+  },
+  "projects": {
+    "title": "Những thứ tui đã làm",
+    "caas": {
+      "desc1": "Một app chatbot để bạn có thể hỏi thông tin tuyển sinh của một trường đại học.",
+      "desc2": "Sẽ có một backend để huấn luện mô hình cũng với CSDL các câu hỏi liên quan. Nhưng chưa được deploy, hiện tại nó chuyển tiếp câu hỏi trực tiếp tới một LLM.",
+      "desc3": "Front-end → Hệ thống CAAS → chuyển tiếp tới Gemini"
+    },
+    "terraship": {
+      "desc1": "Một trò chơi bắn súng không gian với một chút rogue-like. Phá hủy thiên thạch và những kẻ địch để nhận điểm, tạo chuỗi combo bội số, với gameplay từng màn chơi. Mỗi màn sẽ được tạo ngẫu nhiên và khó dần qua từng màn chơi.",
+      "desc2": "Có BXH online, hỗ trợ đa nền tảng, và cũng như hỗ trợ đa ngôn ngữ.",
+      "desc3": "Có lẽ đây là game hoàn thiện nhất tui làm, làm game mệt VCL!"
+    }
+  }
+}

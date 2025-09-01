@@ -37,7 +37,6 @@ export default async function BlogPage({
         <IoChevronBack />
         {dictionary.navigation.backhome} <Home />
       </Link>
-      <p className="text-sm">{dictionary.navigation.translationwarning}</p>
       <Blogs />
     </div>
   );

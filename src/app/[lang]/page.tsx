@@ -2,6 +2,8 @@ import Image from "next/image";
 import Secrets from "@/components/secrets";
 import { lazy } from "react";
 import { type langOption, getDictionary } from "./dictionaries";
+import Link from "next/link";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa6";
 
 const Decor = lazy(() => import("@/app/[lang]/decor"));
 
@@ -35,30 +37,57 @@ export default async function Home({
   return (
     <>
       <Secrets />
-      <div className="w-full items-center justify-items-center min-h-screen gap-16 sm:p-20 pt-10">
+      <div className="w-full justify-items-center gap-16 sm:p-20 pt-22">
         <Decor />
-        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start pb-6">
-          <div className="grid self-center text-wrap max-w-[512px]">
-            <Image
-              className="rounded-2xl justify-self-center"
-              src="/img.png"
-              alt="spike"
-              width={400}
-              height={400}
-              priority
-            />
-            <h1 className="text-2xl text-mono py-4 border-b-3 border-black/30 dark:border-white/70">
-              min
-              <span className="text-violet-600">tram</span>
-              <span className="text-cyan-600">in</span>
-              <span className="text-emerald-700">the</span>
-              <span className="text-amber-600">middle</span>
-            </h1>
+        <main className="flex flex-col row-start-2 w-full sm:items-start p-6">
+          <div className="grid text-wrap max-w-[512px] pt-2 md:pt-16">
             <article>
-              <p>{dictionary.home.intro1}</p>
+              <h1>{dictionary.home.intro1}</h1>
               <p>{dictionary.home.intro2}</p>
-              <p>{dictionary.home.intro3}</p>
-              <p>{dictionary.home.intro4}</p>
+            </article>
+            <article>
+              <span className="flex gap-4 mt-3">
+                <Link href={"/blog"} className="underline">
+                  {dictionary.navbar.blog}
+                </Link>
+                <Link href={"/project"} className="underline">
+                  {dictionary.navbar.project}
+                </Link>
+                <Link href={"https://phaspez.itch.io"} className="underline">
+                  {dictionary.navbar.game}
+                </Link>
+              </span>
+              <span className="flex gap-4 mt-3">
+                <Link
+                  href="https://www.linkedin.com/in/trimin-tram/"
+                  aria-label="linkedin"
+                  className="underline flex items-center gap-2"
+                >
+                  <FaLinkedin /> LinkedIn
+                </Link>
+                <Link
+                  href="https://www.facebook.com/trimin.tram"
+                  aria-label="facebook"
+                  className="underline flex items-center gap-2"
+                >
+                  <FaFacebook /> Facebook
+                </Link>
+                <Link
+                  href="https://github.com/phaspez"
+                  aria-label="github"
+                  className="underline flex items-center gap-2"
+                >
+                  <FaGithub />
+                  GitHub
+                </Link>
+              </span>
+              <span className="flex gap-4 mt-3">
+                <a href="mailto:tramtrimin@gmail.com">
+                  <span className="underline flex items-center gap-2">
+                    tramtrimin@gmail.com
+                  </span>
+                </a>
+              </span>
             </article>
           </div>
         </main>

@@ -1,15 +1,13 @@
 {
   "home": {
-    "intro1": "hi im trimin",
-    "intro2": "a mediocre person, with a PhD on Google search and enslaving LLMs with weird questions.",
-    "intro3": "i like to build things. with code.",
-    "intro4": "feel free to dig around and see what you'd like."
+    "intro1": "Min Tram",
+    "intro2": "I make fast, accessible websites and games. I specialize in React, modern JavaScript, Unity and Godot. Currently a Computer Science student at Can Tho University."
   },
   "navbar": {
-    "blog": "blog",
-    "project": "project",
+    "blog": "Blog",
+    "project": "Project",
     "about": "about",
-    "game": "game",
+    "game": "Game",
     "hire": "hire me plz"
   },
   "footer": {

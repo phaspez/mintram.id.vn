@@ -1,6 +1,3 @@
-import Footer from "@/components/footer";
-//import NavBar from "@/components/navbar";
-//import { ThemeToggle } from "@/components/theme-toggle";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 const jetbrains = JetBrains_Mono({ subsets: ["latin"] });
@@ -28,7 +25,6 @@ export default async function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system">
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

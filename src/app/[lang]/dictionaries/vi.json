@@ -1,14 +1,12 @@
 {
   "home": {
-    "intro1": "xin chào tui là trimin",
-    "intro2": "một người tầm thường, có bằng tiến sĩ trong việc Google search và hỏi LLM những câu kì lạ.",
-    "intro3": "tui thích xây dựng thứ gì đó. với code.",
-    "intro4": "hãy phá trang web của tui."
+    "intro1": "Min Trầm",
+    "intro2": "Mình làm website và trò chơi dễ tiếp cận. Mình chuyên về React, JavaScript, Unity và Godot. Hiện tại là sinh viên ngành Khoa học Máy tính tại Đại học Cần Thơ."
   },
   "navbar": {
-    "blog": "bờ lốc",
-    "project": "dự án",
-    "game": "game",
+    "blog": "Bờ-lốc",
+    "project": "Dự án",
+    "game": "Game",
     "hire": "hãy cho tui job"
   },
   "footer": {

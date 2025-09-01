@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { langOption, getDictionary } from "@/app/[lang]/dictionaries";
+import { IoChevronBack } from "react-icons/io5";
+import { Home } from "lucide-react";
 
-export default async function Home({
+export default async function Page({
   params,
 }: {
   params: Promise<{ lang: langOption }>;
@@ -11,6 +13,11 @@ export default async function Home({
   const dictionary = await getDictionary(lang);
   return (
     <div>
+      <Link href="/" className="flex items-center gap-2 pb-4">
+        <IoChevronBack />
+        {dictionary.navigation.backhome} <Home />
+      </Link>
+
       <h1 className="text-3xl font-bold">{dictionary.projects.title}</h1>
 
       <div className="grid gap-4">

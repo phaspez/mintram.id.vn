@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Secrets from "@/components/secrets";
 import { lazy } from "react";
 import { type langOption, getDictionary } from "./dictionaries";

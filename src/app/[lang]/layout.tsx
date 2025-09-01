@@ -19,12 +19,12 @@ import { langOption } from "./dictionaries";
 
 export default async function RootLayout({
   children,
-  params,
+  //params,
 }: {
   children: React.ReactNode;
   params: { lang: langOption };
 }) {
-  const { lang } = await params;
+  //const { lang } = await params;
   return (
     <>
       {/*<NavBar lang={lang} />*/}

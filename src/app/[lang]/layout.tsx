@@ -3,7 +3,7 @@ import "./globals.css";
 // import { SpeedInsights } from "@vercel/speed-insights/next";
 // import { Analytics } from "@vercel/analytics/react";
 
-import { langOption } from "./dictionaries";
+//import { langOption } from "./dictionaries";
 
 // const jetbrains = JetBrains_Mono({ subsets: ["latin"] });
 
@@ -22,7 +22,7 @@ export default async function RootLayout({
   //params,
 }: {
   children: React.ReactNode;
-  params: { lang: langOption };
+  //params: { lang: langOption };
 }) {
   //const { lang } = await params;
   return (

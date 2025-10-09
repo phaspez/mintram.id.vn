@@ -4,17 +4,15 @@ import { wisp } from "@/lib/wisp";
 import type { Metadata } from "next";
 import { cache } from "react";
 import Link from "next/link";
-import SanitizedBlog from "@/app/[lang]/blog/[slug]/sanitize-blog";
+import SanitizedBlog from "@/app/blog/[slug]/sanitize-blog";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 import { IoChevronBack } from "react-icons/io5";
 import { notFound } from "next/navigation";
 import ScrollToTop from "@/components/ScrollToTop";
-import { getDictionary, langOption } from "@/app/[lang]/dictionaries";
 import { Newspaper } from "lucide-react";
 
 type BlogPostProps = Promise<{
   slug: string;
-  lang: langOption;
 }>;
 
 const fetchPost = cache((slug: string) => {
@@ -62,8 +60,7 @@ export async function generateMetadata({
 }
 
 export default async function BlogPost(props: { params: BlogPostProps }) {
-  const { slug, lang } = await props.params;
-  const dictionary = await getDictionary(lang);
+  const { slug } = await props.params;
 
   const result = await fetchPost(slug);
 
@@ -77,8 +74,7 @@ export default async function BlogPost(props: { params: BlogPostProps }) {
     <div className="w-full">
       <div className="mx-2 w-full mb-10 break-words">
         <Link href="/blog" className="flex items-center gap-2 pb-4">
-          <IoChevronBack />
-          {dictionary.navigation.backblog}
+          <IoChevronBack /> Back to all blogs
           <Newspaper />
         </Link>
         <h1>{title}</h1>

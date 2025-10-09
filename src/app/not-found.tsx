@@ -2,8 +2,8 @@ import Link from "next/link";
 import { IoChevronBack } from "react-icons/io5";
 import { Home } from "lucide-react";
 import DecorNotFound from "@/components/decor-not-found";
-import "./[lang]/decor.css";
-import "./[lang]/globals.css";
+import "./decor.css";
+import "./globals.css";
 
 export default function NotFound() {
   return (

@@ -17,7 +17,7 @@ import { MdOutlineRefresh } from "react-icons/md";
 
 export function BlogsLoading() {
   return (
-    <div className="grid grid-cols-1 gap-16 lg:gap-8 lg:grid-cols-2 md:my-16 my-8">
+    <div className="w-full grid grid-cols-1 gap-16 lg:gap-8 lg:grid-cols-2 md:my-16 my-8">
       {Array(4)
         .fill(0)
         .map((_, idx) => (

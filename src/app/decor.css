@@ -11,9 +11,9 @@
 /* From Uiverse.io by escannord */
 .dotted {
     background: rgba(0, 0, 0, 0)
-    radial-gradient(rgba(124, 124, 124, 0.212) 10%, transparent 30%);
+    radial-gradient(rgba(124, 124, 124, 0.212) 20%, transparent 10%);
 
-    background-size: 11px 11px;
+    background-size: 22px 22px;
 }
 
 /* From Uiverse.io by themrsami */
@@ -35,4 +35,34 @@
             linear-gradient(-45deg, transparent 75%, rgba(204, 204, 204, 0.10) 75%);
     background-size: 30px 30px;
     background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+}
+
+.text-outline
+{
+    color: #000000ff;
+    text-shadow:
+            -1px -1px 0 #444,
+            1px -1px 0 #444,
+            -1px 1px 0 #444,
+            1px 1px 0 #444;
+}
+
+.text-outline-green
+{
+    color: #000000ff;
+    text-shadow:
+            -1px -1px 0 #474,
+            1px -1px 0 #474,
+            -1px 1px 0 #474,
+            1px 1px 0 #474;
+}
+
+.text-outline-blue
+{
+    color: #000000ff;
+    text-shadow:
+            -1px -1px 0 #447,
+            1px -1px 0 #447,
+            -1px 1px 0 #447,
+            1px 1px 0 #447;
 }

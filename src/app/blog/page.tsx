@@ -1,8 +1,8 @@
-import Blogs from "@/app/[lang]/blog/blogs";
+import Blogs from "@/app/blog/blogs";
 import Link from "next/link";
 import { IoChevronBack } from "react-icons/io5";
-import { getDictionary, langOption } from "../dictionaries";
 import { Home } from "lucide-react";
+import "../globals.css";
 
 export const metadata = {
   title: "blog | mintram",
@@ -23,19 +23,12 @@ export const metadata = {
   },
 };
 
-export default async function BlogPage({
-  params,
-}: {
-  params: Promise<{ lang: langOption }>;
-}) {
-  const { lang } = await params;
-  const dictionary = await getDictionary(lang);
-
+export default async function BlogPage() {
   return (
     <div>
       <Link href="/" className="flex items-center gap-2 pb-4">
         <IoChevronBack />
-        {dictionary.navigation.backhome} <Home />
+        <Home /> Go back to Main
       </Link>
       <Blogs />
     </div>

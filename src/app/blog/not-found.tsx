@@ -16,8 +16,10 @@ export default async function NotFound() {
           View all blog <Newspaper />
         </Link>
       </div>
-      Coundn&apos;t find this blog post. Either it&apos;s deleted or it
-      didn&apos;t exist
+      <p>
+        Coundn&apos;t find this blog post. Either it&apos;s deleted or it
+        didn&apos;t exist
+      </p>
       <DecorNotFound />
     </div>
   );

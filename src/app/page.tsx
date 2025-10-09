@@ -127,7 +127,7 @@ export default async function Home() {
             </article>
             <hr />
             <article>
-              <p>Also check out these people's cool sites!</p>
+              <p>Also check out these people&apos;s cool sites!</p>
               <div>
                 <Marquee gradientColor="white" speed={40} pauseOnHover>
                   <a href="https://dimden.dev/">
@@ -157,7 +157,7 @@ export default async function Home() {
                 </Marquee>
               </div>
               <p>Wanna be included? Feel free to shoot a mail!</p>
-              <p>Please do hotlink my site, it's fine!</p>
+              <p>Please do hotlink my site, it&apos;s fine!</p>
               <div className="flex items-center gap-4">
                 <Link href="https://mintram.id.vn/">
                   <Image

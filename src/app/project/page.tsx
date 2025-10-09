@@ -11,7 +11,7 @@ export default async function Page() {
         <Home /> Go back to Main
       </Link>
 
-      <h1 className="text-3xl font-bold">Cool stuff I've made</h1>
+      <h1 className="text-3xl font-bold">Cool stuff I&apos;ve made</h1>
 
       <div className="grid gap-4">
         <article className="lg:columns-2 columns-1 bg-orange-100 dark:bg-orange-600/20 p-4 rounded-md">
@@ -26,7 +26,7 @@ export default async function Page() {
             </p>
             <p>
               There would be a backend for training models and a database of FAQ
-              from the institution. But it isn't deployed yet, for now, it
+              from the institution. But it isn&apos;t deployed yet, for now, it
               forwarded all questions to an LLM.
             </p>
             <p>
@@ -67,7 +67,7 @@ export default async function Page() {
               increasing difficulty.
             </p>
             <p>
-              There's an online leaderboard, multi-platform support
+              There&apos;s an online leaderboard, multi-platform support
               (Web/Android/Windows), and localization support, too.
             </p>
             <p>

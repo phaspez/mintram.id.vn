@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
-import { useTranslation } from "@/hooks/useTranslation";
 
 interface SanitizedBlogProps {
   content: string;
@@ -15,7 +14,6 @@ interface TocItem {
 }
 
 export default function SanitizedBlog({ content }: SanitizedBlogProps) {
-  const { t } = useTranslation();
   const [sanitizedContent, setSanitizedContent] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -102,9 +100,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
       {toc.length > 0 && (
         <div className="md:w-1/4">
           <div className="sticky top-4 pt-2 md:pt-14 md:min-h-screen md:border-r-2">
-            <h3 className="text-lg font-semibold mb-2">
-              {t("navigation.toc")}
-            </h3>
+            <h3 className="text-lg font-semibold mb-2">Table of Contents</h3>
             <nav className="">
               <ul className="space-y-1">
                 {toc.map((item) => (

@@ -15,11 +15,15 @@ function GlitchText({ text, className }: { text: string; className?: string }) {
   const [display, setDisplay] = useState<string[]>(chars);
   const [mounted, setMounted] = useState(false);
 
-  const delays = chars.map((_, i) => `${(i * 0.15) % 2}s`);
+  const delays = chars.map((_, i) => `${(i * 0.05) % 2}s`);
 
   useEffect(() => {
     setMounted(true);
+    // track timeouts so we can clear them on unmount
+    const timeouts: number[] = [];
     const interval = setInterval(() => {
+      if (Math.random() > 0.18) return;
+
       const i = Math.floor(Math.random() * chars.length);
       const rand = randomGlyph();
       setDisplay((prev) => {
@@ -27,7 +31,7 @@ function GlitchText({ text, className }: { text: string; className?: string }) {
         next[i] = rand;
         return next;
       });
-      const restore = setTimeout(
+      const restore = window.setTimeout(
         () => {
           setDisplay((prev) => {
             const next = prev.slice();
@@ -35,11 +39,14 @@ function GlitchText({ text, className }: { text: string; className?: string }) {
             return next;
           });
         },
-        60 + Math.random() * 220,
+        80 + Math.random() * 120,
       );
-      return () => clearTimeout(restore);
-    }, 800);
-    return () => clearInterval(interval);
+      timeouts.push(restore);
+    }, 3500);
+    return () => {
+      clearInterval(interval);
+      timeouts.forEach((t) => clearTimeout(t));
+    };
   }, [text]);
 
   if (!mounted) {
@@ -88,10 +95,10 @@ export default function Decor() {
         speed={10}
         className="fixed w-screen h-[428px] top-[170px] sm:top-[212px]"
       >
-        <div className="strip w-[512px] h-[428px] top-[170px] sm:top-[212px]" />
-        <div className="strip w-[512px] h-[428px] top-[170px] sm:top-[212px]" />
-        <div className="strip w-[512px] h-[428px] top-[170px] sm:top-[212px]" />
-        <div className="strip w-[512px] h-[428px] top-[170px] sm:top-[212px]" />
+        <div className="strip w-[510px] h-[428px] top-[170px] sm:top-[212px]" />
+        <div className="strip w-[510px] h-[428px] top-[170px] sm:top-[212px]" />
+        <div className="strip w-[510px] h-[428px] top-[170px] sm:top-[212px]" />
+        <div className="strip w-[510px] h-[428px] top-[170px] sm:top-[212px]" />
       </Marquee>
       <div className="fixed w-[612px] top-[128px] py-4 border-r-12 rotate-1">
         <Marquee className="fixed text-bold text-xl text-gray-600/30 dark:text-gray-400/30">

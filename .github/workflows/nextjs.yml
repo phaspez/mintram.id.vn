@@ -77,10 +77,6 @@ jobs:
       - name: Build with Next.js
         run: npx next build
         working-directory: ${{ env.PROJECT_DIR }}
-      
-      - name: Export with Next.js
-        run: npx next export
-        working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

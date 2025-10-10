@@ -75,11 +75,11 @@ jobs:
         working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.run-command }} next build
+        run: npx next build
         working-directory: ${{ env.PROJECT_DIR }}
-
+      
       - name: Export with Next.js
-        run: ${{ steps.detect-package-manager.outputs.run-command }} next export
+        run: npx next export
         working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Upload artifact

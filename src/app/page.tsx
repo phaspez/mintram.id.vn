@@ -35,101 +35,110 @@ export default async function Home() {
       <KeyboardShortcuts />
       <div className="w-full justify-items-center gap-16 sm:p-20 pt-22">
         <Decor />
-        <main className="flex flex-col row-start-2 w-full sm:items-start p-6">
-          <div className="grid text-wrap max-w-[512px] pt-2 md:pt-16">
-            <article>
-              <h1>Min Tram</h1>
-              <p>
-                I make websites and games! I use React, Unity and Godot.
-                Currently a Computer Science student at Can Tho University.
-              </p>
-            </article>
-            <article>
-              <span className="flex gap-4 mt-3">
-                <Link
-                  href={"/blog"}
-                  className="underline"
-                  aria-keyshortcuts="b"
-                >
-                  <span className="text-gray-400">[</span>
-                  <span>B</span>
-                  <span className="text-gray-400">]</span>log
-                </Link>
-
-                <Link
-                  href={"/project"}
-                  className="underline"
-                  aria-keyshortcuts="p"
-                >
-                  <span className="text-gray-400">[</span>
-                  <span>P</span>
-                  <span className="text-gray-400">]</span>roject
-                </Link>
-
-                <Link
-                  href={"https://phaspez.itch.io"}
-                  className="underline"
-                  aria-keyshortcuts="g"
-                >
-                  <span className="text-gray-400">[</span>
-                  <span>G</span>
-                  <span className="text-gray-400">]</span>ame
-                </Link>
-              </span>
-              <span className="flex gap-4 mt-3">
-                <Link
-                  href="https://www.linkedin.com/in/trimin-tram/"
-                  aria-label="linkedin"
-                  className="underline flex items-center gap-2"
-                  aria-keyshortcuts="l"
-                >
-                  <FaLinkedin />
-                  <span className="flex gap-0">
+        <main className="w-full sm:items-start pt-20 px-6">
+          <span className="flex gap-4">
+            <h1>Min Tram</h1>
+            <sub>Phaspez</sub>
+          </span>
+          <div className="flex flex-wrap gap-x-64 gap-y-32 text-wrap">
+            <article className="text-wrap max-w-[512px]">
+              <article>
+                <p>
+                  I make websites and games! I use React, Unity and Godot.
+                  Currently a Computer Science student at Can Tho University.
+                </p>
+              </article>
+              <article>
+                <span className="flex gap-4 mt-3">
+                  <Link
+                    href={"/blog"}
+                    className="underline"
+                    aria-keyshortcuts="b"
+                  >
                     <span className="text-gray-400">[</span>
-                    <span>L</span>
-                    <span className="text-gray-400">]</span>inkedIn
-                  </span>
-                </Link>
-                <Link
-                  href="https://www.facebook.com/trimin.tram"
-                  aria-label="facebook"
-                  className="underline flex items-center gap-2"
-                  aria-keyshortcuts="f"
-                >
-                  <FaFacebook />
-                  <span className="flex gap-0">
+                    <span>B</span>
+                    <span className="text-gray-400">]</span>log
+                  </Link>
+
+                  <Link
+                    href={"/project"}
+                    className="underline"
+                    aria-keyshortcuts="p"
+                  >
                     <span className="text-gray-400">[</span>
-                    <span>F</span>
-                    <span className="text-gray-400">]</span>aceBook
-                  </span>
-                </Link>
-                <Link
-                  href="https://github.com/phaspez"
-                  aria-label="github"
-                  className="underline flex items-center gap-2"
-                  aria-keyshortcuts="h"
-                >
-                  <FaGithub />
-                  <span className="flex gap-0">
-                    Git<span className="text-gray-400">[</span>
-                    <span>H</span>
-                    <span className="text-gray-400">]</span>ub
-                  </span>
-                </Link>
-              </span>
-              <span className="flex gap-4 mt-3">
-                <a href="mailto:tramtrimin@gmail.com">
-                  <span className="underline flex items-center gap-2">
-                    tramtrimin@gmail.com
-                  </span>
-                </a>
-              </span>
+                    <span>P</span>
+                    <span className="text-gray-400">]</span>roject
+                  </Link>
+
+                  <Link
+                    href={"https://phaspez.itch.io"}
+                    className="underline"
+                    aria-keyshortcuts="g"
+                  >
+                    <span className="text-gray-400">[</span>
+                    <span>G</span>
+                    <span className="text-gray-400">]</span>ame
+                  </Link>
+                </span>
+                <span className="flex gap-4 mt-3">
+                  <Link
+                    href="https://www.linkedin.com/in/trimin-tram/"
+                    aria-label="linkedin"
+                    className="underline flex items-center gap-2"
+                    aria-keyshortcuts="l"
+                  >
+                    <FaLinkedin />
+                    <span className="flex gap-0">
+                      <span className="text-gray-400">[</span>
+                      <span>L</span>
+                      <span className="text-gray-400">]</span>inkedIn
+                    </span>
+                  </Link>
+                  <Link
+                    href="https://www.facebook.com/trimin.tram"
+                    aria-label="facebook"
+                    className="underline flex items-center gap-2"
+                    aria-keyshortcuts="f"
+                  >
+                    <FaFacebook />
+                    <span className="flex gap-0">
+                      <span className="text-gray-400">[</span>
+                      <span>F</span>
+                      <span className="text-gray-400">]</span>aceBook
+                    </span>
+                  </Link>
+                  <Link
+                    href="https://github.com/phaspez"
+                    aria-label="github"
+                    className="underline flex items-center gap-2"
+                    aria-keyshortcuts="h"
+                  >
+                    <FaGithub />
+                    <span className="flex gap-0">
+                      Git<span className="text-gray-400">[</span>
+                      <span>H</span>
+                      <span className="text-gray-400">]</span>ub
+                    </span>
+                  </Link>
+                </span>
+                <span className="flex gap-4 mt-3">
+                  <a href="mailto:tramtrimin@gmail.com">
+                    <span className="underline flex items-center gap-2">
+                      tramtrimin@gmail.com
+                    </span>
+                  </a>
+                </span>
+              </article>
             </article>
-            <hr />
-            <article>
+            <article className="text-wrap max-w-[512px]">
               <p>Also check out these people&apos;s cool sites!</p>
               <div>
-                <Marquee gradientColor="white" speed={40} pauseOnHover>
+                <Marquee
+                  gradientColor="white"
+                  speed={40}
+                  pauseOnHover
+                  className="border-x-12 border-[#ffffe3] rounded-md"
+                >
                   <a href="https://dimden.dev/">
                     <img
                       src="https://dimden.dev/services/images/88x31.gif"
@@ -156,9 +165,11 @@ export default async function Home() {
                   </a>
                 </Marquee>
               </div>
-              <p>Wanna be included? Feel free to shoot a mail!</p>
-              <p>Please do hotlink my site, it&apos;s fine!</p>
-              <div className="flex items-center gap-4">
+              <p className="p-0">
+                Wanna be included? Feel free to shoot a mail! Please do hotlink
+                my site, it&apos;s fine!
+              </p>
+              <div className="flex items-center gap-4 p-0">
                 <Link href="https://mintram.id.vn/">
                   <Image
                     src={"/hello.gif"}
@@ -172,8 +183,8 @@ export default async function Home() {
                   className="break-all mt-2 border-2 border-gray rounded-md"
                   id="plainText"
                   name="plainText"
-                  rows={4}
-                  cols={40}
+                  rows={2}
+                  cols={30}
                   defaultValue={
                     "<a href='https://mintram.id.vn/'>\n\t<img src='https://mintram.id.vn/hello.gif' alt='phaspez'>\n</a>\n"
                   }

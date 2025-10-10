@@ -11,9 +11,9 @@ export default async function NotFound() {
           <IoChevronBack />
           Back to Homepage <Home />
         </Link>
-        <Link href="/blog" className="flex items-center gap-2 pb-4">
+        <Link href="/posts" className="flex items-center gap-2 pb-4">
           <IoChevronBack />
-          View all blog <Newspaper />
+          View all posts <Newspaper />
         </Link>
       </div>
       <p>

@@ -39,7 +39,7 @@
 
 .text-outline
 {
-    color: #000000ff;
+    color: #000;
     text-shadow:
             -1px -1px 0 #444,
             1px -1px 0 #444,
@@ -49,20 +49,118 @@
 
 .text-outline-green
 {
-    color: #000000ff;
+    color: #000;
+    -webkit-text-fill-color: #000;
     text-shadow:
-            -1px -1px 0 #474,
-            1px -1px 0 #474,
-            -1px 1px 0 #474,
-            1px 1px 0 #474;
+            -1px -1px 0 #4743,
+            1px -1px 0 #4743,
+            -1px 1px 0 #4743,
+            1px 1px 0 #4743;
 }
 
 .text-outline-blue
 {
-    color: #000000ff;
+    color: #000;
+    -webkit-text-fill-color: #000;
     text-shadow:
-            -1px -1px 0 #447,
-            1px -1px 0 #447,
-            -1px 1px 0 #447,
-            1px 1px 0 #447;
+            -1px -1px 0 #4473,
+            1px -1px 0 #4473,
+            -1px 1px 0 #4473,
+            1px 1px 0 #4473;
+}
+
+.glitch {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    white-space: pre;
+    pointer-events: none;
+}
+
+.glitch-letter {
+    position: relative;
+    display: inline-block;
+    will-change: transform, opacity;
+    --flicker-duration: 4s; /* Slower: was 1.5s */
+}
+
+/* Colored duplicate layers for RGB split - MUCH lower opacity to prevent pink tint */
+.glitch-letter::before,
+.glitch-letter::after {
+    content: attr(data-char);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-origin: left top;
+    mix-blend-mode: screen;
+}
+
+.glitch-letter::before {
+    color: rgba(255,80,80,0.15);
+    z-index: 1;
+    animation: glitch-anim-1 5s infinite linear;
+    clip-path: inset(0 0 0 0);
+}
+
+.glitch-letter::after {
+    color: rgba(80,200,255,0.15);
+    z-index: 1;
+    animation: glitch-anim-2 5.5s infinite linear;
+    clip-path: inset(0 0 0 0);
+}
+
+
+.glitch-letter {
+    z-index: 2;
+    color: inherit;
+    animation: flicker var(--flicker-duration) infinite;
+}
+
+@keyframes glitch-anim-1 {
+    0% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+    10% { transform: translate(-2px,-1px) skewX(-6deg); clip-path: inset(20% 0 40% 0); }
+    20% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+    30% { transform: translate(-4px,0) skewX(-8deg); clip-path: inset(10% 0 60% 0); }
+    60% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+    100% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+    8% { transform: translate(3px,1px) skewX(6deg); clip-path: inset(30% 0 30% 0); }
+    18% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+    40% { transform: translate(2px,0) skewX(4deg); clip-path: inset(5% 0 70% 0); }
+    100% { transform: translate(0,0) skewX(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes flicker {
+    0% { opacity: 1; filter: none; }
+    2% { opacity: 0.85; }
+    4% { opacity: 1; }
+    7% { opacity: 0.6; }
+    10% { opacity: 1; }
+    70% { opacity: 0.98; }
+    100% { opacity: 1; }
+}
+
+.glitch[data-glitch-pulse="true"] {
+    animation: word-glitch 15s infinite;
+}
+
+@keyframes word-glitch {
+    0%, 92% { transform: none; filter: none; }
+    93% { transform: translateX(-6px) skewX(-3deg); filter: drop-shadow(0 0 6px rgba(255,0,0,0.08)); }
+    95% { transform: translateX(6px) skewX(3deg); filter: drop-shadow(0 0 6px rgba(0,200,255,0.06)); }
+    97% { transform: none; filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .glitch-letter,
+    .glitch-letter::before,
+    .glitch-letter::after {
+        animation: none !important;
+    }
 }

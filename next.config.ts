@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["imagedelivery.net"],
   },
+  output: "export",
 };
 
 export default nextConfig;

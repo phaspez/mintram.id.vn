@@ -17,6 +17,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   const [sanitizedContent, setSanitizedContent] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
+  const giscusRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     DOMPurify.addHook("afterSanitizeAttributes", function (node) {
@@ -76,6 +77,37 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     }
   }, [sanitizedContent, toc]);
 
+  // Inject giscus script into the page below the post content.
+  useEffect(() => {
+    if (!giscusRef.current) return;
+
+    // Clean previous instance (if any)
+    giscusRef.current.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", "phaspez/site-discussion");
+    script.setAttribute("data-repo-id", "R_kgDOP_wW4A");
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDOP_wW4M4Cwdwa");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", "preferred_color_scheme");
+    script.setAttribute("data-lang", "en");
+    script.crossOrigin = "anonymous";
+    script.async = true;
+
+    // Append script to the container so giscus will render there
+    giscusRef.current.appendChild(script);
+
+    return () => {
+      if (giscusRef.current) giscusRef.current.innerHTML = "";
+    };
+  }, [sanitizedContent]);
+
   const handleTocClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string,
@@ -96,42 +128,48 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 pr-6">
-      {toc.length > 0 && (
-        <div className="md:w-1/4">
-          <div className="sticky top-4 pt-2 md:pt-14 md:min-h-screen md:border-r-2">
-            <h3 className="text-lg font-semibold mb-2">Table of Contents</h3>
-            <nav className="">
-              <ul className="space-y-1">
-                {toc.map((item) => (
-                  <li
-                    className="list-none"
-                    key={item.id}
-                    style={{
-                      paddingLeft: `${(item.level - 1) * 0.5}rem`,
-                      fontSize: `${Math.max(0.9 - (item.level - 1) * 0.05, 0.7)}rem`,
-                    }}
-                  >
-                    <a
-                      href={`#${item.id}`}
-                      onClick={(e) => handleTocClick(e, item.id)}
-                      className="text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors"
+    <div>
+      <div className="flex flex-col md:flex-row gap-8 pr-6">
+        {toc.length > 0 && (
+          <div className="md:w-1/4">
+            <div className="sticky top-4 pt-2 md:pt-14 md:min-h-screen md:border-r-2">
+              <h3 className="text-lg font-semibold mb-2">Table of Contents</h3>
+              <nav className="">
+                <ul className="space-y-1">
+                  {toc.map((item) => (
+                    <li
+                      className="list-none"
+                      key={item.id}
+                      style={{
+                        paddingLeft: `${(item.level - 1) * 0.5}rem`,
+                        fontSize: `${Math.max(0.9 - (item.level - 1) * 0.05, 0.7)}rem`,
+                      }}
                     >
-                      {item.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+                      <a
+                        href={`#${item.id}`}
+                        onClick={(e) => handleTocClick(e, item.id)}
+                        className="text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors"
+                      >
+                        {item.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div
-        ref={contentRef}
-        className={(toc.length > 0 ? "md:w-3/4" : "w-full") + " text-justify"}
-        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-      />
+        <div
+          ref={contentRef}
+          className={(toc.length > 0 ? "md:w-3/4" : "w-full") + " text-justify"}
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+        />
+      </div>
+      {/* Giscus comments will render here */}
+      <div className="py-6">
+        <div ref={giscusRef} className="mt-8 md:w-3/4 giscus" />
+      </div>
     </div>
   );
 }

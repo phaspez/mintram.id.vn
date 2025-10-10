@@ -137,12 +137,20 @@
   font-size: 140px;
 }
 
-p, textarea {
+p, textarea, ul, li {
   @apply text-[#ffffe3];
 }
 
 textarea {
   @apply bg-[#404040];
+}
+
+a {
+  @apply text-[#87ceeb] no-underline hover:underline flex items-center;
+}
+
+sub {
+  @apply text-[#ffffe3];
 }
 
 .outline {

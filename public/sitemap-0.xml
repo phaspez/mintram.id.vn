@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://mintram.id.vn/blog/project-parsec</loc><lastmod>2025-05-26T15:13:26.796Z</lastmod></url>
+<url><loc>https://mintram.id.vn/project</loc><lastmod>2025-10-10T07:54:34.348Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn</loc><lastmod>2025-10-10T07:54:34.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn/blog</loc><lastmod>2025-10-10T07:54:34.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn/blog/college-isnt-fun-as-i-think-it-was</loc><lastmod>2025-10-10T07:54:34.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn/blog/how-i-made-this-site</loc><lastmod>2025-10-10T07:54:34.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn/blog/parsec-game</loc><lastmod>2025-10-10T07:54:34.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn/blog/updating-the-site</loc><lastmod>2025-10-10T07:54:34.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://mintram.id.vn/blog/project-parsec</loc><lastmod>2025-06-13T14:02:09.235Z</lastmod></url>
 <url><loc>https://mintram.id.vn/blog/how-i-made-this-website</loc><lastmod>2025-03-16T08:22:38.261Z</lastmod></url>
 </urlset>

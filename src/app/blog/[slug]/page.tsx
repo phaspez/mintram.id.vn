@@ -1,98 +1,75 @@
-"use server";
-
-import { wisp } from "@/lib/wisp";
-import type { Metadata } from "next";
-import { cache } from "react";
-import Link from "next/link";
+import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
 import SanitizedBlog from "@/app/blog/[slug]/sanitize-blog";
-import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
-import { IoChevronBack } from "react-icons/io5";
 import { notFound } from "next/navigation";
-import ScrollToTop from "@/components/ScrollToTop";
-import { Newspaper } from "lucide-react";
+import Link from "next/link";
+import { Home, Newspaper } from "lucide-react";
+import type { Metadata } from "next";
 
-type BlogPostProps = Promise<{
-  slug: string;
-}>;
-
-const fetchPost = cache((slug: string) => {
-  return wisp.getPost(slug);
-});
+export async function generateStaticParams() {
+  const posts = getAllPostSlugs();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
 }: {
-  params: BlogPostProps;
+  // params may be a Promise in Next's PageProps type; accept that and await it below
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const result = await fetchPost(slug);
-
-  if (!result.post) {
-    return {
-      title: "Post Not Found",
-      description: "The requested blog post could not be found",
-    };
+  const post = await getPostBySlug(slug);
+  if (!post) {
+    return { title: "Post not found" };
   }
 
-  const { title, content, image, description, tags } = result.post;
-  const tagsName = tags.map((tag) => tag.name);
-  const plainTextContent = content.replace(/<[^>]*>/g, "");
-  const desc = description || plainTextContent.substring(0, 157) + "...";
-  const openGraph: OpenGraph = {
-    title,
-    description: desc,
-    type: "article",
-    tags: tagsName,
-    url: `https://mintram.id.vn/blog/${slug}`,
-    images: [
-      {
-        url: image || "",
-        alt: `Cover image for blog post titled ${title}`,
-      },
-    ],
-  };
+  const url = `https://mintram.id.vn/blog/${slug}`;
 
   return {
-    title: `${title} | blog | mintram`,
-    description,
-    openGraph,
-  };
+    title: "blog | " + post.title,
+    description: post.excerpt ?? post.title,
+    authors: post ? [{ name: "Mintram" }] : undefined,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt ?? post.title,
+      type: "article",
+      url,
+      publishedTime: post.date,
+      images: post.coverImage ? [{ url: post.coverImage }] : undefined,
+    },
+    twitter: { card: "summary_large_image" },
+    alternates: { canonical: url },
+  } as Metadata;
 }
 
-export default async function BlogPost(props: { params: BlogPostProps }) {
-  const { slug } = await props.params;
+export default async function Post({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
-  const result = await fetchPost(slug);
-
-  if (!result.post) {
-    notFound();
+  if (!post) {
+    return notFound();
   }
 
-  const { title, publishedAt, createdAt, content, tags } = result.post;
-
   return (
-    <div className="w-full">
-      <div className="mx-2 w-full mb-10 break-words">
-        <Link href="/blog" className="flex items-center gap-2 pb-4">
-          <IoChevronBack /> Back to all blogs
-          <Newspaper />
+    <div>
+      <span className="flex items-center gap-4">
+        <Link href={"/"}>
+          <Home /> Home
         </Link>
-        <h1>{title}</h1>
-        <SanitizedBlog content={content} />
-        <div className="mt-10 opacity-40 text-sm">
-          {tags.map((tag) => (
-            <span key={tag.name} className="mr-2">
-              #{tag.name}
-            </span>
-          ))}
-        </div>
-        <div className="text-sm opacity-40 mt-4">
-          {Intl.DateTimeFormat("en-US").format(
-            new Date(publishedAt || createdAt),
-          )}
-        </div>
+        <Link href={"/blog"}>
+          <Newspaper /> Blog
+        </Link>
+      </span>
+      <div className="flex items-start gap-4">
+        <h1>{post.title}</h1>
+        <p>{post.date}</p>
       </div>
-      <ScrollToTop />
+      <SanitizedBlog content={post.content} />
     </div>
   );
 }

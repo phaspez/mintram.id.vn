@@ -1,74 +1,8 @@
 "use client";
 
 import Marquee from "react-fast-marquee";
-import React, { useEffect, useState } from "react";
 import "./decor.css";
-
-function randomGlyph() {
-  const glyphs =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()[]{}<>/\\|~`+=-";
-  return glyphs.charAt(Math.floor(Math.random() * glyphs.length));
-}
-
-function GlitchText({ text, className }: { text: string; className?: string }) {
-  const chars = Array.from(text);
-  const [display, setDisplay] = useState<string[]>(chars);
-  const [mounted, setMounted] = useState(false);
-
-  const delays = chars.map((_, i) => `${(i * 0.05) % 2}s`);
-
-  useEffect(() => {
-    setMounted(true);
-    // track timeouts so we can clear them on unmount
-    const timeouts: number[] = [];
-    const interval = setInterval(() => {
-      if (Math.random() > 0.18) return;
-
-      const i = Math.floor(Math.random() * chars.length);
-      const rand = randomGlyph();
-      setDisplay((prev) => {
-        const next = prev.slice();
-        next[i] = rand;
-        return next;
-      });
-      const restore = window.setTimeout(
-        () => {
-          setDisplay((prev) => {
-            const next = prev.slice();
-            next[i] = chars[i];
-            return next;
-          });
-        },
-        80 + Math.random() * 120,
-      );
-      timeouts.push(restore);
-    }, 3500);
-    return () => {
-      clearInterval(interval);
-      timeouts.forEach((t) => clearTimeout(t));
-    };
-  }, [text]);
-
-  if (!mounted) {
-    return <span className={className}>{text}</span>;
-  }
-
-  return (
-    <span className={className ?? "glitch"} aria-hidden>
-      {display.map((c, i) => (
-        <span
-          key={i}
-          className="glitch-letter"
-          data-char={c}
-          style={{ animationDelay: delays[i] }}
-          aria-hidden
-        >
-          {c}
-        </span>
-      ))}
-    </span>
-  );
-}
+import Image from "next/image";
 
 export default function Decor() {
   return (
@@ -78,16 +12,24 @@ export default function Decor() {
       role="presentation"
     >
       <div className="text-[22.25rem] fixed text-outline-blue -rotate-6">
-        <GlitchText text="Phaspez" />
+        <span aria-hidden role={"presentation"}>
+          Phaspez
+        </span>
       </div>
       <div className="text-[12.25rem] fixed text-outline-green -rotate-6">
-        <GlitchText text="パスペス" />
+        <span aria-hidden role={"presentation"}>
+          パスペス
+        </span>
       </div>
       <div className="text-[22.25rem] fixed text-outline-blue right-[64px] bottom-[156px] rotate-12">
-        <GlitchText text="MinTram" />
+        <span aria-hidden role={"presentation"}>
+          MinTram
+        </span>
       </div>
       <div className="text-[12.25rem] fixed text-outline-green top-[612px] -rotate-6">
-        <GlitchText text="トリミン" />
+        <span aria-hidden role={"presentation"}>
+          トリミン
+        </span>
       </div>
       <div className="fixed bg-container dark:bg-container-dark" />
       <div className="fixed dotted lg:w-[716px] md:w-[384px] w-[256px] h-screen left-[12px] md:left-[64px] lg:left-[128px]" />
@@ -117,10 +59,30 @@ export default function Decor() {
           Lorem Ipsum |
         </Marquee>
       </div>
-      <div className="fixed checkerboard w-[1200px] border-y-2 h-18 top-[812px] -rotate-9 px-[200px] border-2 border-red-700/30" />
-      {/*<div className="fixed w-screen border-y-2 h-18 top-[652px] -rotate-9 px-[200px]" />*/}
-      <div className="fixed w-30 checkerboard h-[512px] right-[525px] rotate-12 border-2 border-red-700/30" />
-      <div className="fixed w-48 checkerboard h-screen right-[65px] rotate-4 border-2 border-red-700/30" />
+      <div className="fixed checkerboard w-[620px] h-18 top-[690px] px-[200px]" />
+      <div
+        className="fixed inset-0 bg-[url('/img_1.png')] bg-center bg-repeat-x bg-contain
+        pointer-events-none w-[2024px] h-[64px] opacity-10"
+        aria-hidden
+      />
+      <div
+        className="fixed top-0 right-[0px] bg-[url('/img_2.png')] bg-center bg-repeat-y bg-contain
+        pointer-events-none h-[1024px] w-[82px] opacity-10 animate-bg-pan"
+        aria-hidden
+      />
+      <div
+        className="fixed bottom-0 left-[872px] bg-[url('/img_3.png')] bg-center bg-contain
+        pointer-events-none h-[224px] w-[264px] opacity-10 animate-bg-pan"
+        aria-hidden
+      />
+
+      {/*<Image*/}
+      {/*  src={"/img_1.png"}*/}
+      {/*  alt={"bg"}*/}
+      {/*  width={358}*/}
+      {/*  height={45}*/}
+      {/*  className="mix-blend-soft-light"*/}
+      {/*/>*/}
     </div>
   );
 }

@@ -1,17 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IoChevronBack } from "react-icons/io5";
 import { Home } from "lucide-react";
+import BlogDecor from "@/components/blog-decor";
 
 export default async function Page() {
   return (
     <div>
-      <Link href="/" className="flex items-center gap-2 pb-4">
-        <IoChevronBack />
-        <Home /> Go back to Main
+      <BlogDecor />
+      <Link href={"/"} className="span-icon-text">
+        <Home />
+        <span>
+          Hom<span className="text-gray-400/40">[</span>e
+          <span className="text-gray-400/40">]</span>
+        </span>
       </Link>
 
-      <h1 className="text-3xl font-bold">Cool stuff I&apos;ve made</h1>
+      <h1 className="text-3xl font-bold decorative-text">project</h1>
 
       <div className="grid gap-4">
         <article className="lg:columns-2 columns-1 bg-orange-100 dark:bg-orange-600/20 p-4 rounded-md">
@@ -25,9 +29,9 @@ export default async function Page() {
               a college institution.
             </p>
             <p>
-              There would be a backend for training models and a database of FAQ
-              from the institution. But it isn&apos;t deployed yet, for now, it
-              forwarded all questions to an LLM.
+              e There would be a backend for training models and a database of
+              FAQ from the institution. But it isn&apos;t deployed yet, for now,
+              it forwarded all questions to an LLM.
             </p>
             <p>
               Front-end → CAAS system (return related information) → forward it
@@ -55,7 +59,7 @@ export default async function Page() {
               className="rounded-md"
             />
           </div>
-          <div>
+          <div className="grid gap-2 content-center">
             <h2 className="mt-2">Terraship</h2>
             <Link href="https://phaspez.itch.io/terraship">
               phaspez.itch.io/terraship

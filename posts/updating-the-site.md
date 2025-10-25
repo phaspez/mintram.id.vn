@@ -3,6 +3,7 @@ title: "Website update"
 date: "2025-10-09"
 excerpt: "This is like the 4th time i'm making a personal website again wtf"
 coverImage: "/images/3/img.png"
+tags: ["webdev"]
 ---
 
 It's that time or the year again that I decided to update my personal website. This is like the 4th 

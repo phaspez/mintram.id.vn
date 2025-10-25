@@ -57,18 +57,27 @@ export default async function Post({
 
   return (
     <div>
-      <span className="flex items-center gap-4">
-        <Link href={"/"}>
-          <Home /> Home
+      <span className="span-icon-text">
+        <Link href={"/"} className="span-icon-text">
+          <Home />
+          <span>
+            Hom<span className="text-gray-400/40">[</span>e
+            <span className="text-gray-400/40">]</span>
+          </span>
         </Link>
-        <Link href={"/blog"}>
-          <Newspaper /> Blog
+        <Link href={"/"} className="span-icon-text">
+          <Newspaper />
+          <span>
+            <span className="text-gray-400/40">[</span>B
+            <span className="text-gray-400/40">]</span>log
+          </span>
         </Link>
       </span>
-      <div className="flex items-start gap-4">
+      <span className="not-prose flex-wrap gap-4 content-start flex">
+        <h1 className="decorative-text pr-8">blog /</h1>
         <h1>{post.title}</h1>
-        <p>{post.date}</p>
-      </div>
+        <p className="pt-0 mt-0">{post.date}</p>
+      </span>
       <SanitizedBlog content={post.content} />
     </div>
   );

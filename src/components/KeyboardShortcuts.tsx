@@ -26,6 +26,7 @@ export default function KeyboardShortcuts() {
       else if (k === "f")
         window.open("https://www.facebook.com/trimin.tram", "_blank");
       else if (k === "h") window.open("https://github.com/phaspez", "_blank");
+      else if (k == "e") router.push("/");
     };
 
     window.addEventListener("keydown", handler);

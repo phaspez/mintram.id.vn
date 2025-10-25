@@ -3,6 +3,7 @@ title: "Parsec the video game"
 date: "2025-05-26"
 excerpt: "Cool game about smash hitting stuff literally"
 coverImage: "/images/2/img.png"
+tags: ["gamedev"]
 ---
 
 ## prologue

@@ -3,6 +3,7 @@ title: "college is no longer fun as i think it was"
 date: "2025-10-10"
 excerpt: "a rant of a needy, lonely, broke ass boy, who suffocated in student debt and senioritis."
 coverImage: "/images/img.png"
+tags: ["personal"]
 ---
 
 title says it all. no more reading required.

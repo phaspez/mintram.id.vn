@@ -162,7 +162,10 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
 
         <div
           ref={contentRef}
-          className={(toc.length > 0 ? "md:w-3/4" : "w-full") + " text-justify"}
+          className={
+            (toc.length > 0 ? "md:w-3/4" : "w-full") +
+            " text-justify w-full bg-black p-4"
+          }
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
       </div>

@@ -3,6 +3,7 @@ title: "How I made this website"
 date: "2025-03-16"
 excerpt: "The making of this site is simply vibe coding"
 coverImage: "/images/1/img.png"
+tags: ["webdev"]
 ---
 
 ![](/images/1/img.png)

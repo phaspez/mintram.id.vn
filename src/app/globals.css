@@ -137,8 +137,24 @@
   font-size: 140px;
 }
 
+h1 {
+    @apply pb-4 text-4xl font-bold text-[#ffffe3];
+}
+
+h2, h3 {
+  @apply font-bold text-[#ffffe3];
+}
+
+.paragraph {
+    @apply pb-4 leading-7;
+}
+
 p, textarea, ul, li {
   @apply text-[#ffffe3];
+}
+
+.text-muted-foreground {
+  @apply text-[#b3b3b3];
 }
 
 textarea {
@@ -155,4 +171,12 @@ sub {
 
 .outline {
   @apply drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)];
+}
+
+.decorative-text {
+  font-family: var(--font-alphatron), sans-serif;
+}
+
+.span-icon-text {
+  @apply flex items-center gap-3;
 }

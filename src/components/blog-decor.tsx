@@ -20,9 +20,6 @@ export default function BlogDecor() {
         <div className="strip w-[510px] h-[428px] top-[170px] sm:top-[212px]" />
         <div className="strip w-[510px] h-[428px] top-[170px] sm:top-[212px]" />
       </Marquee>
-      {/*<div className="fixed checkerboard w-[1200px] border-y-2 h-18 top-[812px] -rotate-9 px-[200px] border-2 border-red-700/30" />*/}
-      {/*<div className="fixed w-30 checkerboard h-[512px] right-[525px] rotate-12 border-2 border-red-700/30" />*/}
-      {/*<div className="fixed w-48 checkerboard h-screen right-[65px] rotate-4 border-2 border-red-700/30" />*/}
     </div>
   );
 }

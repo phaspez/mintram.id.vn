@@ -12,6 +12,22 @@ const postsDirectory = (() => {
   return postsPath; // fallback
 })();
 
+function parseTags(raw: any): string[] {
+  if (!raw) return [];
+  if (Array.isArray(raw))
+    return raw
+      .map(String)
+      .map((t) => t.trim())
+      .filter(Boolean);
+  if (typeof raw === "string") {
+    return raw
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -19,6 +35,7 @@ export interface Post {
   excerpt: string;
   content: string;
   coverImage: string | null;
+  tags: string[];
 }
 
 export function getAllPosts(): Omit<Post, "content">[] {
@@ -39,6 +56,7 @@ export function getAllPosts(): Omit<Post, "content">[] {
         date: data?.date ?? "",
         excerpt: data?.excerpt ?? "",
         coverImage: data?.coverImage ?? null,
+        tags: parseTags(data?.tags),
       } as Omit<Post, "content">;
     });
 
@@ -64,6 +82,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     excerpt: data?.excerpt ?? "",
     content: contentHtml,
     coverImage: data?.coverImage ?? null,
+    tags: parseTags(data?.tags),
   } as Post;
 }
 
@@ -76,4 +95,18 @@ export function getAllPostSlugs(): { slug: string }[] {
     .map((fileName) => ({
       slug: fileName.replace(/\.md$/, ""),
     }));
+}
+
+export function getAllTags(): string[] {
+  const posts = getAllPosts();
+  const set = new Set<string>();
+  posts.forEach((p) => p.tags.forEach((t) => set.add(t)));
+  return Array.from(set).sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: "base" }),
+  );
+}
+
+export function getPostsByTag(tag: string): Omit<Post, "content">[] {
+  const posts = getAllPosts();
+  return posts.filter((p) => p.tags.includes(tag));
 }

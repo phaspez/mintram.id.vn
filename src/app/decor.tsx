@@ -2,7 +2,6 @@
 
 import Marquee from "react-fast-marquee";
 import "./decor.css";
-import Image from "next/image";
 
 export default function Decor() {
   return (

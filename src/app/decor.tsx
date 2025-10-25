@@ -74,14 +74,6 @@ export default function Decor() {
         pointer-events-none h-[224px] w-[264px] opacity-10 animate-bg-pan"
         aria-hidden
       />
-
-      {/*<Image*/}
-      {/*  src={"/img_1.png"}*/}
-      {/*  alt={"bg"}*/}
-      {/*  width={358}*/}
-      {/*  height={45}*/}
-      {/*  className="mix-blend-soft-light"*/}
-      {/*/>*/}
     </div>
   );
 }

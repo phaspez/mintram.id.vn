@@ -47,36 +47,18 @@
     background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
 }
 
-.text-outline
-{
-    color: #000000;
-    text-shadow:
-            -1px -1px 0 #444,
-            1px -1px 0 #444,
-            -1px 1px 0 #444,
-            1px 1px 0 #444;
-}
-
 .text-outline-green
 {
-    color: #000000;
-    -webkit-text-fill-color: #000;
-    text-shadow:
-            -1px -1px 0 #4743,
-            1px -1px 0 #4743,
-            -1px 1px 0 #4743,
-            1px 1px 0 #4743;
+    color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #095a23;
 }
 
 .text-outline-blue
 {
-    color: #000000;
-    -webkit-text-fill-color: #000;
-    text-shadow:
-            -1px -1px 0 #4473,
-            1px -1px 0 #4473,
-            -1px 1px 0 #4473,
-            1px 1px 0 #4473;
+    color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #1b4247;
 }
 
 .glitch {

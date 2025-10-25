@@ -6,6 +6,7 @@ import Marquee from "react-fast-marquee";
 import Image from "next/image";
 import "./globals.css";
 import { Mail } from "lucide-react";
+import { NeonFlickerText } from "@/components/NeonFlicker";
 
 const Decor = lazy(() => import("@/app/decor"));
 
@@ -39,10 +40,14 @@ export default async function Home() {
         <main className="w-full sm:items-start pt-0 md:px-8">
           <span className="not-prose content-start lg:hidden">
             <p className="p-0 m-0 decorative-text max-w-[435px]">phaspez</p>
-            <h1 className="p-0 m-0 decorative-text title">mintram</h1>
+            <h1 className="decorative-text text-outline title">
+              <NeonFlickerText text="mintram" />
+            </h1>
           </span>
           <span className="not-prose flex-wrap gap-4 content-start hidden lg:flex">
-            <h1 className="decorative-text">mintram</h1>
+            <h1 className="decorative-text text-outline">
+              <NeonFlickerText text="mintram" />
+            </h1>
             <p className="pt-0 mt-0 decorative-text">phaspez</p>
           </span>
           <div className="flex flex-wrap w-full p-0">

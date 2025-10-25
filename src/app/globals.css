@@ -116,6 +116,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: oklch(0.442 0.017 285.786);
+
+  --neon-glow-1: #132440;
+  --neon-glow-2: #F75270;
+  --neon-glow-3:#BF092F;
 }
 
 @layer base {
@@ -183,4 +187,57 @@ sub {
 
 .span-icon-text {
   @apply flex items-center gap-3;
+}
+
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #BF092F;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+    text-shadow:
+            0 0 6px var(--neon-glow-1),
+            0 0 12px var(--neon-glow-2),
+            0 0 24px var(--neon-glow-3);
+    filter: drop-shadow(0 0 8px var(--neon-glow-2));
+  }
+
+  /* --- FLICKER OFF --- */
+  20%, 24%, 55% {
+    opacity: 0;
+    text-shadow: none;
+    filter: none;
+  }
+}
+
+.neon-text {
+  color: transparent;
+  text-shadow:
+          0 0 4px var(--neon-glow-1),
+          0 0 8px var(--neon-glow-2),
+          0 0 10px var(--neon-glow-3);
+  display: inline-block;
+}
+
+.neon-text .neon-letter {
+  display: inline-block;
+  will-change: opacity, text-shadow, filter;
+  animation: flicker 2.5s infinite alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.neon-text .neon-letter:nth-child(2n) {
+  animation-delay: 0.2s;
+}
+
+.neon-text .neon-letter:nth-child(3n) {
+  animation-delay: 0.5s;
+}
+
+.neon-text .neon-letter:nth-child(5n) {
+  animation-delay: -0.3s;
 }

@@ -65,7 +65,7 @@ export default async function Post({
             <span className="text-gray-400/40">]</span>
           </span>
         </Link>
-        <Link href={"/"} className="span-icon-text">
+        <Link href={"/blog"} className="span-icon-text">
           <Newspaper />
           <span>
             <span className="text-gray-400/40">[</span>B

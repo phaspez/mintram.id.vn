@@ -34,22 +34,20 @@ export default async function Home() {
   return (
     <>
       <Secrets />
-      <div className="w-full justify-items-center gap-16 sm:p-20 pt-22">
+      <div className="w-full justify-items-center p-0 sm:p-20 pt-4">
         <Decor />
-        <main className="w-full sm:items-start pt-0 px-8">
+        <main className="w-full sm:items-start pt-0 md:px-8">
           <span className="not-prose content-start lg:hidden">
-            <p className="p-0 m-0 decorative-text text-right max-w-[435px]">
-              phaspez
-            </p>
-            <h1 className="p-0 m-0 decorative-text">mintram</h1>
+            <p className="p-0 m-0 decorative-text max-w-[435px]">phaspez</p>
+            <h1 className="p-0 m-0 decorative-text title">mintram</h1>
           </span>
           <span className="not-prose flex-wrap gap-4 content-start hidden lg:flex">
             <h1 className="decorative-text">mintram</h1>
             <p className="pt-0 mt-0 decorative-text">phaspez</p>
           </span>
-          <div className="flex flex-wrap flex-reverse">
-            <div className="max-w-min border-6 border-red-900/40 bg-red-900/40">
-              <article className="text-wrap min-w-[419px] p-4 pb-0">
+          <div className="flex flex-wrap w-full p-0">
+            <div className="order-1 lg:order-none border-6 border-red-900/40 bg-red-900/40">
+              <article className="text-wrap lg:w-[419px] p-3 lg:p-4 pb-0">
                 <p>I make websites and games! I use React, Unity and Godot.</p>
                 <span className="flex flex-wrap gap-4 mt-3">
                   <Link
@@ -102,14 +100,14 @@ export default async function Home() {
                   </a>
                 </span>
               </article>
-              <article className="text-wrap mix-w-[419px] p-4">
+              <article className="text-wrap lg:w-[419px] p-3 lg:p-4">
                 <p>Also check out these people&apos;s cool sites!</p>
                 <div>
                   <Marquee
                     gradientColor="white"
                     speed={40}
                     pauseOnHover
-                    className="border-x-12 border-[#ffffe3] h-10 overflow-hidden py-0"
+                    className="border-x-12 border-[#ffffe3] h-10 overflow-hidden py-0 "
                   >
                     <a href="https://dimden.dev/">
                       <img
@@ -151,14 +149,16 @@ export default async function Home() {
                       className="min-w-[81px] min-h-[31px]"
                     />
                   </Link>
-                  <p className="text-xs text-muted-foreground">{plainText}</p>
+                  <p className="text-xs text-muted-foreground text-balance break-all">
+                    {plainText}
+                  </p>
                 </div>
               </article>
             </div>
-            <div className="flex justify-center w-full lg:w-min lg:grid content-start gap-4 pt-10 lg:pl-4 flex-none">
+            <div className="flex order-0 lg:order-none justify-center w-full lg:w-min lg:grid content-start gap-4 pb-6 lg:pl-4 flex-none">
               <Link
                 href={"/blog"}
-                className="underline decorative-text text-xl grow-none"
+                className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="b"
               >
                 <span className="text-gray-400/40">[</span>
@@ -168,7 +168,7 @@ export default async function Home() {
 
               <Link
                 href={"/project"}
-                className="underline decorative-text text-xl"
+                className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="p"
               >
                 <span className="text-gray-400/40">[</span>
@@ -178,7 +178,7 @@ export default async function Home() {
 
               <Link
                 href={"https://phaspez.itch.io"}
-                className="underline decorative-text text-xl"
+                className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="g"
               >
                 <span className="text-gray-400/40">[</span>

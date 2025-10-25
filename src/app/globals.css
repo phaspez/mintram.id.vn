@@ -141,8 +141,12 @@ h1 {
     @apply pb-4 text-4xl font-bold text-[#ffffe3];
 }
 
-h2, h3 {
+h2, h3, h4, h5, h6 {
   @apply font-bold text-[#ffffe3];
+}
+
+.title {
+  @apply text-2xl md:text-4xl
 }
 
 .paragraph {

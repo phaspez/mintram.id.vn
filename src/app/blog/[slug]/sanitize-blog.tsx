@@ -13,6 +13,14 @@ interface TocItem {
   level: number;
 }
 
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
 export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   const [sanitizedContent, setSanitizedContent] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
@@ -21,16 +29,15 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
 
   useEffect(() => {
     DOMPurify.addHook("afterSanitizeAttributes", function (node) {
-      if (node.tagName === "IMG") {
-        node.className = (node.className || "") + " max-w-full h-auto";
-
-        node.setAttribute("style", "max-width: 100%; height: auto;");
+      const el = node as Element;
+      if (el.tagName === "IMG") {
+        (el as HTMLElement).className =
+          ((el as HTMLElement).className || "") + " max-w-full h-auto";
+        el.setAttribute("style", "max-width: 100%; height: auto;");
       }
     });
 
     const cleanContent = DOMPurify.sanitize(content);
-    setSanitizedContent(cleanContent);
-
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = cleanContent;
 
@@ -38,12 +45,14 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     const tocItems: TocItem[] = [];
 
     headings.forEach((heading, index) => {
-      const id = heading.id || `heading-${index}`;
+      const text = heading.textContent || `heading-${index}`;
+      const generatedId = slugify(text) || `heading-${index}`;
+      const id = heading.id || generatedId;
       heading.id = id;
 
       tocItems.push({
         id,
-        text: heading.textContent || "",
+        text,
         level: parseInt(heading.tagName.charAt(1)),
       });
     });
@@ -77,11 +86,25 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     }
   }, [sanitizedContent, toc]);
 
+  const scrollToId = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerHeight = 100; // Adjust based on your header height + desired padding
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   // Inject giscus script into the page below the post content.
   useEffect(() => {
     if (!giscusRef.current) return;
 
-    // Clean previous instance (if any)
     giscusRef.current.innerHTML = "";
 
     const script = document.createElement("script");
@@ -100,7 +123,6 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     script.crossOrigin = "anonymous";
     script.async = true;
 
-    // Append script to the container so giscus will render there
     giscusRef.current.appendChild(script);
 
     return () => {
@@ -108,24 +130,45 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     };
   }, [sanitizedContent]);
 
+  // When a TOC link is clicked: update URL hash (push) and smooth-scroll
   const handleTocClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string,
   ) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const headerHeight = 100; // Adjust based on your header height + desired padding
-      const elementPosition =
-        element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - headerHeight;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+    // push hash so back/forward work
+    try {
+      history.pushState(null, "", `#${id}`);
+    } catch {
+      // fallback
+      window.location.hash = id;
     }
+
+    scrollToId(id);
   };
+
+  // On mount and when sanitizedContent changes, scroll to current hash if present.
+  useEffect(() => {
+    const tryScrollToHash = () => {
+      const rawHash = window.location.hash;
+      if (rawHash && rawHash.length > 1) {
+        const id = decodeURIComponent(rawHash.substring(1));
+        // Delay slightly to ensure content is rendered
+        setTimeout(() => scrollToId(id), 50);
+      }
+    };
+
+    tryScrollToHash();
+
+    // Also handle user using back/forward or manual hash changes
+    const onHashChange = () => {
+      const id = decodeURIComponent(window.location.hash.substring(1) || "");
+      if (id) scrollToId(id);
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, [sanitizedContent]);
 
   return (
     <div>

@@ -12,19 +12,23 @@ const postsDirectory = (() => {
   return postsPath; // fallback
 })();
 
-function parseTags(raw: any): string[] {
-  if (!raw) return [];
-  if (Array.isArray(raw))
+function parseTags(raw: unknown): string[] {
+  if (raw == null) return [];
+
+  if (Array.isArray(raw)) {
     return raw
       .map(String)
       .map((t) => t.trim())
       .filter(Boolean);
+  }
+
   if (typeof raw === "string") {
     return raw
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean);
   }
+
   return [];
 }
 

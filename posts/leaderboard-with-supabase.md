@@ -8,7 +8,7 @@ tags: ["gamedev"]
 
 So uhh in this guide I will try to make it as simple as possible with code examples.
 
-![]("/images/leaderboard/leaderboard.png")
+![](/images/leaderboard/leaderboard.png)
 
 this is the approach that i used for the game [Makeshift](https://phaspez.itch.io/makeshift)
 

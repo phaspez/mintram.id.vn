@@ -256,7 +256,30 @@ sub {
   animation-delay: -0.3s;
 }
 
-/* Blog-specific styles */
+.blog-content h1 {
+  color: #fcf8f8;
+}
+
+.blog-content h2 {
+  color: #fbefef;
+}
+
+.blog-content h3 {
+  color: #f9dfdf;
+}
+
+.blog-content h4 {
+  color: #f5afaf;
+}
+
+.blog-content h5 {
+  color: #fdacac;
+}
+
+.blog-content a {
+  display: inline;
+}
+
 .blog-content code,
 .blog-content pre code {
   color: #ffffff;

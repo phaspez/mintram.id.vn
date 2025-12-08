@@ -388,7 +388,7 @@ leaderboard!
 
 ## what's next
 
-there's a lot of things i stripped out. for example, validating your username—what if they type in an empty string? what if the hi-score
+there's a lot of things i stripped out. for example, validating your username. what if they type in an empty string? what if the hi-score
 is zero? what if they use profanity?
 
 there are a lot of edge cases like these, but to be honest for a simple web game it shouldn't matter that much. the main thing you

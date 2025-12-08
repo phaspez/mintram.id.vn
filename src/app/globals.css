@@ -118,8 +118,8 @@
   --sidebar-ring: oklch(0.442 0.017 285.786);
 
   --neon-glow-1: #132440;
-  --neon-glow-2: #F75270;
-  --neon-glow-3:#BF092F;
+  --neon-glow-2: #f75270;
+  --neon-glow-3: #bf092f;
 }
 
 @layer base {
@@ -142,22 +142,29 @@
 }
 
 h1 {
-    @apply pb-4 text-4xl font-bold text-[#ffffe3];
+  @apply pb-4 text-4xl font-bold text-[#ffffe3];
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   @apply font-bold text-[#ffffe3];
 }
 
 .title {
-  @apply text-2xl md:text-4xl
+  @apply text-2xl md:text-4xl;
 }
 
 .paragraph {
-    @apply pb-4 leading-7;
+  @apply pb-4 leading-7;
 }
 
-p, textarea, ul, li {
+p,
+textarea,
+ul,
+li {
   @apply text-[#ffffe3];
 }
 
@@ -189,25 +196,32 @@ sub {
   @apply flex items-center gap-3;
 }
 
-
 .text-outline {
   color: transparent;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #BF092F;
+  -webkit-text-stroke-color: #bf092f;
 }
 
 @keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
     opacity: 1;
     text-shadow:
-            0 0 6px var(--neon-glow-1),
-            0 0 12px var(--neon-glow-2),
-            0 0 24px var(--neon-glow-3);
+      0 0 6px var(--neon-glow-1),
+      0 0 12px var(--neon-glow-2),
+      0 0 24px var(--neon-glow-3);
     filter: drop-shadow(0 0 8px var(--neon-glow-2));
   }
 
   /* --- FLICKER OFF --- */
-  20%, 24%, 55% {
+  20%,
+  24%,
+  55% {
     opacity: 0;
     text-shadow: none;
     filter: none;
@@ -217,9 +231,9 @@ sub {
 .neon-text {
   color: transparent;
   text-shadow:
-          0 0 4px var(--neon-glow-1),
-          0 0 8px var(--neon-glow-2),
-          0 0 10px var(--neon-glow-3);
+    0 0 4px var(--neon-glow-1),
+    0 0 8px var(--neon-glow-2),
+    0 0 10px var(--neon-glow-3);
   display: inline-block;
 }
 
@@ -240,4 +254,10 @@ sub {
 
 .neon-text .neon-letter:nth-child(5n) {
   animation-delay: -0.3s;
+}
+
+/* Blog-specific styles */
+.blog-content code,
+.blog-content pre code {
+  color: #ffffff;
 }

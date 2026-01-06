@@ -15,7 +15,10 @@ export default async function Page() {
         </span>
       </Link>
 
-      <h1 className="text-3xl font-bold decorative-text">project</h1>
+      <h1 className="text-3xl font-bold decorative-text">
+        <span className="sm:hidden">proj.</span>
+        <span className="hidden sm:inline">projects</span>
+      </h1>
 
       <div className="grid gap-4">
         <article className="lg:columns-2 columns-1 bg-orange-100 dark:bg-orange-600/20 p-4 rounded-md">

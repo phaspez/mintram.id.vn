@@ -10,21 +10,21 @@ export default function Decor() {
       aria-hidden
       role="presentation"
     >
-      <div className="text-[22.25rem] fixed text-outline-blue -rotate-6">
+      {/* <div className="text-[22.25rem] fixed text-outline-blue -rotate-6">
         <span aria-hidden role={"presentation"}>
           Phaspez
         </span>
-      </div>
+      </div> */}
       <div className="text-[12.25rem] fixed text-outline-green -rotate-6">
         <span aria-hidden role={"presentation"}>
           パスペス
         </span>
       </div>
-      <div className="text-[22.25rem] fixed text-outline-blue right-[64px] bottom-[156px] rotate-12">
+      {/* <div className="text-[22.25rem] fixed text-outline-blue right-[64px] bottom-[156px] rotate-12">
         <span aria-hidden role={"presentation"}>
           MinTram
         </span>
-      </div>
+      </div> */}
       <div className="text-[12.25rem] fixed text-outline-green top-[612px] -rotate-6">
         <span aria-hidden role={"presentation"}>
           トリミン
@@ -53,9 +53,8 @@ export default function Decor() {
           direction="right"
           className="text-bold text-xl text-gray-600/30 dark:text-gray-400/30"
         >
-          I make websites, games and software | Hobby: Anime, Investments,
-          Reading, Drawing | I like learning new technologies | Quá ghê gớm |
-          Lorem Ipsum |
+          I make websites, games and software | Hobby: Anime, Reading, Drawing |
+          I like learning new technologies | Quá ghê gớm | Lorem Ipsum |
         </Marquee>
       </div>
       <div className="fixed checkerboard w-[620px] h-18 top-[690px] px-[200px]" />
@@ -69,11 +68,11 @@ export default function Decor() {
         pointer-events-none h-[1024px] w-[82px] opacity-10 animate-bg-pan"
         aria-hidden
       />
-      <div
+      {/* <div
         className="fixed bottom-0 left-[872px] bg-[url('/img_3.png')] bg-center bg-contain
         pointer-events-none h-[224px] w-[264px] opacity-10 animate-bg-pan"
         aria-hidden
-      />
+      /> */}
     </div>
   );
 }

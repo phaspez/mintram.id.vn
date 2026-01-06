@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    domains: ["imagedelivery.net"],
+    domains: ["imagedelivery.net", "guestscounter.com"],
   },
   //output: "export",
 };

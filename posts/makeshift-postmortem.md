@@ -48,10 +48,10 @@ Khá nhiều người comment về juice và design. Mình xài cả tấn shade
 noise. Rất nhiều chuyển động trong game chỉ toàn xài Tween. Mọi UI trong game chỉ Label node và text mà thôi:) ngay cả mấy cái như progress bar mình
 kiếm mã Unicode phù hợp để gán.
 
-Sau khi mình upload game thì mình đã làm theo rất nhiều feedback người chơi đưa. Patch đầu là khi thua thay vì cho các phím Retry/Menu là hướng mũi tên luôn thì bind
-tới Space/Enter để tránh ấn lộn, cùng kim và ngược kim đồng hồ có màu hơi khác. Patch thứ hai là giảm độ khó cho game, dù hiện tại game vẫn khó vl:) Trước
-đó một màn có 20 prompt và mỗi perfect cộng thêm 0.8s, giờ chỉ có 17 và perfect cho 0.9s, ngoài ra có promt Hán tự nhiều người thấy cấn nên mình thay bằng
-shape đơn giản hơn, và có leaderboard sau lần này. Patch cuối mình làm thêm chế độ Endless, mấy màn thêm với mấy tùy chọn cài đặt.
+Sau khi mình upload game thì mình đã làm theo rất nhiều feedback người chơi đưa. Patch đầu là khi thua thay vì cho các phím Retry/Menu là hướng mũi tên luôn
+thì bind tới Space/Enter để tránh ấn nhầm, kế tiếp là panel cùng kim và ngược kim đồng hồ có màu hơi khác. Patch thứ hai là giảm độ khó cho game, dù hiện tại
+game vẫn khó vl:) Trước đó một màn có 20 prompt và mỗi perfect cộng thêm 0.8s, giờ chỉ có 17 và perfect cho 0.9s, ngoài ra có promt Hán tự nhiều người thấy cấn
+nên mình thay bằng shape đơn giản hơn, và có leaderboard sau lần này. Patch cuối mình làm thêm chế độ Endless, mấy màn thêm với mấy tùy chọn cài đặt.
 
 Thế có thể là xong cho một game jam:) Thật ra mình không gặp nhiều trở ngại lắm trong quá trình làm. Ngoài việc bị TNGT và bị bong gân bàn chân tới giờ còn
 hơi ê. Giờ nghĩ lại có thể control hơi lấn cấn một xíu. Thay vì Enter để chọn thì mình bind để mở Leaderboard. Mục đích là vì mình muốn navigation dùng

@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import Secrets from "@/components/secrets";
 import { lazy } from "react";
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa6";
-import Marquee from "react-fast-marquee";
+import ShikiHighlighter from "@/components/ShikiHighlighter";
 import Image from "next/image";
 import "./globals.css";
 import { Mail } from "lucide-react";
 import { NeonFlickerText } from "@/components/NeonFlicker";
+import CoolSites from "@/components/cool-sites";
 
 const Decor = lazy(() => import("@/app/decor"));
 
@@ -30,8 +32,6 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const plainText =
-    "<a href='https://mintram.id.vn/'>\n\t<img src='https://mintram.id.vn/hello.gif' alt='phaspez'>\n</a>";
   return (
     <>
       <Secrets />
@@ -51,8 +51,8 @@ export default async function Home() {
             <p className="pt-0 mt-0 decorative-text">phaspez</p>
           </span>
           <div className="flex flex-wrap w-full p-0">
-            <div className="order-1 lg:order-none border-6 border-red-900/40 bg-red-900/40">
-              <article className="text-wrap lg:w-[419px] p-3 lg:p-4 pb-0">
+            <div className="order-1 lg:order-none grid grid-cols-1 gap-2">
+              <article className="text-wrap lg:w-[430px] p-3 lg:p-4 pb-0 link-red article-panel">
                 <p>I make websites and games! I use React, Unity and Godot.</p>
                 <span className="flex flex-wrap gap-4 mt-3">
                   <Link
@@ -69,7 +69,7 @@ export default async function Home() {
                     </span>
                   </Link>
                   <Link
-                    href="https://www.facebook.com/trimin.tram"
+                    href="https://www.facebook.com/phaspez"
                     aria-label="facebook"
                     className="span-icon-text"
                     aria-keyshortcuts="f"
@@ -105,70 +105,52 @@ export default async function Home() {
                   </a>
                 </span>
               </article>
-              <article className="text-wrap lg:w-[419px] p-3 lg:p-4">
-                <p>Also check out these people&apos;s cool sites!</p>
-                <div>
-                  <Marquee
-                    gradientColor="white"
-                    speed={40}
-                    pauseOnHover
-                    className="border-x-12 border-[#ffffe3] h-10 overflow-hidden py-0 "
-                  >
-                    <a href="https://dimden.dev/">
-                      <img
-                        src="https://dimden.dev/services/images/88x31.gif"
-                        alt="Dimden"
-                      />
-                    </a>
-                    <a href="https://melankorin.net/">
-                      <img
-                        src="https://melankorin.net/assets/img/buttons/button-1.gif"
-                        alt="Melankorin"
-                      />
-                    </a>
-                    <a href="https://frutigeraeroarchive.org/">
-                      <img
-                        src="https://frutigeraeroarchive.org/images/buttons/frutigeraeroarchive_button.png"
-                        alt="The Frutiger Aero Archive"
-                      />
-                    </a>
-                    <a href="https://ribo.zone/">
-                      <img
-                        src="https://ribo.zone/88x31/site/ribozone.gif"
-                        alt="Ribozone"
-                      />
-                    </a>
-                  </Marquee>
-                </div>
-                <p>
-                  Wanna be included? Feel free to shoot me a mail! Please do
-                  hotlink my site, it&apos;s fine!
-                </p>
-                <div className="flex items-center p-0 gap-2">
+
+              <article className="text-wrap lg:w-[430px] p-3 lg:p-4 article-panel">
+                <p>Neighborhood</p>
+                <CoolSites />
+                <sub>
+                  Feel free to hit me up! Please do hotlink my site, it&apos;s
+                  fine!
+                </sub>
+                <div className="flex items-center p-0 gap-1 overflow-x-scroll">
                   <Link href="https://mintram.id.vn/">
                     <Image
                       src={"/hello.gif"}
-                      width="81"
+                      width="88"
                       height="31"
                       alt="image"
-                      className="min-w-[81px] min-h-[31px]"
+                      className="min-w-[88px] min-h-[31px]"
                     />
                   </Link>
-                  <p className="text-xs text-muted-foreground text-balance break-all">
-                    {plainText}
-                  </p>
+                  <ShikiHighlighter
+                    code={`<a href='https://mintram.id.vn/'>\n\t<img src='https://mintram.id.vn/hello.gif' alt='phaspez'>\n</a>`}
+                    lang="html"
+                    theme="red"
+                  />
                 </div>
               </article>
+              <div className="flex gap-2 justify-center items-center text-center">
+                <p className="p-0 m-0">Guest Counter</p>
+                <div>
+                  <a href="http://guestscounter.com" className="relative h-5">
+                    <img
+                      src="http://guestscounter.com/count.php?c_style=49&id=1767699326"
+                      alt="free hits count GuestCounter.com"
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="flex order-0 lg:order-none justify-center w-full lg:w-min lg:grid content-start gap-4 pb-6 lg:pl-4 flex-none">
+            <div className="flex flex-wrap order-0 lg:order-none justify-center w-full lg:w-min lg:grid content-start gap-4 pb-6 lg:pl-4 flex-none">
               <Link
                 href={"/blog"}
                 className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="b"
               >
-                <span className="text-gray-400/40">[</span>
+                <span className="text-gray-400/40 select-none">[</span>
                 <span>B</span>
-                <span className="text-gray-400/40">]</span>LOG
+                <span className="text-gray-400/40 select-none">]</span>LOG
               </Link>
 
               <Link
@@ -176,9 +158,9 @@ export default async function Home() {
                 className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="p"
               >
-                <span className="text-gray-400/40">[</span>
+                <span className="text-gray-400/40 select-none">[</span>
                 <span>P</span>
-                <span className="text-gray-400/40">]</span>ROJECTS
+                <span className="text-gray-400/40 select-none">]</span>ROJECTS
               </Link>
 
               <Link
@@ -186,10 +168,22 @@ export default async function Home() {
                 className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="g"
               >
-                <span className="text-gray-400/40">[</span>
+                <span className="text-gray-400/40 select-none">[</span>
                 <span>G</span>
-                <span className="text-gray-400/40">]</span>AMES
+                <span className="text-gray-400/40 select-none">]</span>AMES
               </Link>
+
+              <Link
+                href={"/guestbook"}
+                className="underline decorative-text text-md md:text-xl"
+                aria-keyshortcuts="b"
+              >
+                GUES
+                <span className="text-gray-400/40 select-none">[</span>
+                <span>T</span>
+                <span className="text-gray-400/40 select-none">]</span>BOOK
+              </Link>
+              <Link href={"/changelog"}>Changelog</Link>
             </div>
           </div>
         </main>

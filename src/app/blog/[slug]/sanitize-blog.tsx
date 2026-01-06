@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
+import { codeToHtml } from "shiki";
 
 interface SanitizedBlogProps {
   content: string;
@@ -28,37 +29,136 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   const giscusRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    DOMPurify.addHook("afterSanitizeAttributes", function (node) {
-      const el = node as Element;
-      if (el.tagName === "IMG") {
-        (el as HTMLElement).className =
-          ((el as HTMLElement).className || "") + " max-w-full h-auto";
-        el.setAttribute("style", "max-width: 100%; height: auto;");
-      }
-    });
-
-    const cleanContent = DOMPurify.sanitize(content);
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = cleanContent;
-
-    const headings = tempDiv.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    const tocItems: TocItem[] = [];
-
-    headings.forEach((heading, index) => {
-      const text = heading.textContent || `heading-${index}`;
-      const generatedId = slugify(text) || `heading-${index}`;
-      const id = heading.id || generatedId;
-      heading.id = id;
-
-      tocItems.push({
-        id,
-        text,
-        level: parseInt(heading.tagName.charAt(1)),
+    const processContent = async () => {
+      DOMPurify.addHook("afterSanitizeAttributes", function (node) {
+        const el = node as Element;
+        if (el.tagName === "IMG") {
+          (el as HTMLElement).className =
+            ((el as HTMLElement).className || "") + " max-w-full h-auto";
+          el.setAttribute("style", "max-width: 100%; height: auto;");
+        }
       });
-    });
 
-    setSanitizedContent(tempDiv.innerHTML);
-    setToc(tocItems);
+      const cleanContent = DOMPurify.sanitize(content);
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = cleanContent;
+
+      // Extract headings for TOC
+      const headings = tempDiv.querySelectorAll("h1, h2, h3, h4, h5, h6");
+      const tocItems: TocItem[] = [];
+
+      headings.forEach((heading, index) => {
+        const text = heading.textContent || `heading-${index}`;
+        const generatedId = slugify(text) || `heading-${index}`;
+        const id = heading.id || generatedId;
+        heading.id = id;
+
+        tocItems.push({
+          id,
+          text,
+          level: parseInt(heading.tagName.charAt(1)),
+        });
+      });
+
+      // Process code blocks with Shiki
+      const codeBlocks = tempDiv.querySelectorAll("pre code");
+
+      for (const codeBlock of Array.from(codeBlocks)) {
+        const pre = codeBlock.parentElement;
+        if (!pre) continue;
+
+        // Extract language from class (e.g., "language-javascript")
+        let language = "text";
+        const classes = codeBlock.className.split(" ");
+        for (const cls of classes) {
+          if (cls.startsWith("language-")) {
+            language = cls.replace("language-", "");
+            break;
+          }
+        }
+
+        // Get the code content
+        const code = codeBlock.textContent || "";
+
+        try {
+          // Generate highlighted HTML with Shiki
+          const html = await codeToHtml(code, {
+            lang: language,
+            theme: "github-dark", // or 'github-light', 'dracula', 'nord', etc.
+          });
+
+          // Create a wrapper div and insert the highlighted code
+          const wrapper = document.createElement("div");
+          wrapper.className = "shiki-wrapper my-4";
+          wrapper.innerHTML = html;
+
+          // Replace the pre element with the highlighted version
+          pre.replaceWith(wrapper);
+        } catch (error) {
+          console.error(
+            `Error highlighting code block with language ${language}:`,
+            error,
+          );
+          // Keep original code block if highlighting fails
+        }
+      }
+
+      // Process inline code with Shiki
+      const inlineCodes = tempDiv.querySelectorAll("code:not(pre code)");
+
+      for (const inlineCode of Array.from(inlineCodes)) {
+        // Extract language from class if present
+        let language = "text";
+        const classes = inlineCode.className.split(" ");
+        for (const cls of classes) {
+          if (cls.startsWith("language-")) {
+            language = cls.replace("language-", "");
+            break;
+          }
+        }
+
+        // Get the code content
+        const code = inlineCode.textContent || "";
+
+        try {
+          // Generate highlighted HTML with Shiki for inline code
+          const html = await codeToHtml(code, {
+            lang: language,
+            theme: "github-dark",
+          });
+
+          // Extract just the code part without the pre wrapper
+          const temp = document.createElement("div");
+          temp.innerHTML = html;
+          const preElement = temp.querySelector("pre");
+          const codeElement = preElement?.querySelector("code");
+
+          if (codeElement) {
+            // Create inline span with the highlighted content
+            const span = document.createElement("span");
+            span.className = "shiki-inline";
+            span.innerHTML = codeElement.innerHTML;
+
+            // Copy the background color from the pre element
+            const bgColor = preElement?.style.backgroundColor || "#0d1117";
+            span.style.backgroundColor = bgColor;
+            span.style.padding = "0.2em 0.4em";
+            span.style.borderRadius = "0.25rem";
+            span.style.fontSize = "0.875em";
+
+            inlineCode.replaceWith(span);
+          }
+        } catch (error) {
+          console.error(`Error highlighting inline code:`, error);
+          // Keep original inline code if highlighting fails
+        }
+      }
+
+      setSanitizedContent(tempDiv.innerHTML);
+      setToc(tocItems);
+    };
+
+    processContent();
   }, [content]);
 
   useEffect(() => {
@@ -78,7 +178,19 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
         style.id = "scroll-margin-style";
         style.textContent = `
           h1, h2, h3, h4, h5, h6 {
-            scroll-margin-top: 80px; /* Adjust this value based on your header height + some padding */
+            scroll-margin-top: 80px;
+          }
+          .shiki-wrapper {
+            border-radius: 0.5rem;
+            overflow-x: auto;
+          }
+          .shiki-wrapper pre {
+            margin: 0;
+            padding: 1rem;
+          }
+          .shiki-inline {
+            display: inline;
+            font-family: 'Courier New', Courier, monospace;
           }
         `;
         document.head.appendChild(style);
@@ -89,7 +201,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   const scrollToId = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerHeight = 100; // Adjust based on your header height + desired padding
+      const headerHeight = 100;
       const elementPosition =
         element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - headerHeight;
@@ -101,7 +213,6 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     }
   };
 
-  // Inject giscus script into the page below the post content.
   useEffect(() => {
     if (!giscusRef.current) return;
 
@@ -130,38 +241,32 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     };
   }, [sanitizedContent]);
 
-  // When a TOC link is clicked: update URL hash (push) and smooth-scroll
   const handleTocClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string,
   ) => {
     e.preventDefault();
 
-    // push hash so back/forward work
     try {
       history.pushState(null, "", `#${id}`);
     } catch {
-      // fallback
       window.location.hash = id;
     }
 
     scrollToId(id);
   };
 
-  // On mount and when sanitizedContent changes, scroll to current hash if present.
   useEffect(() => {
     const tryScrollToHash = () => {
       const rawHash = window.location.hash;
       if (rawHash && rawHash.length > 1) {
         const id = decodeURIComponent(rawHash.substring(1));
-        // Delay slightly to ensure content is rendered
         setTimeout(() => scrollToId(id), 50);
       }
     };
 
     tryScrollToHash();
 
-    // Also handle user using back/forward or manual hash changes
     const onHashChange = () => {
       const id = decodeURIComponent(window.location.hash.substring(1) || "");
       if (id) scrollToId(id);
@@ -212,7 +317,6 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
       </div>
-      {/* Giscus comments will render here */}
       <div className="py-6">
         <div ref={giscusRef} className="mt-8 md:w-3/4 giscus" />
       </div>

@@ -177,7 +177,11 @@ textarea {
 }
 
 a {
-  @apply text-[#87ceeb] no-underline hover:underline flex items-center;
+  @apply text-[#6ab0ff] no-underline hover:underline flex items-center;
+}
+
+.link-red a {
+  @apply text-[#da4f4f];
 }
 
 sub {
@@ -283,4 +287,26 @@ sub {
 .blog-content code,
 .blog-content pre code {
   color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a0404;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b91c1c;
+  border: 2px solid #2a0404;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #dc2626;
+}
+
+.article-panel {
+  @apply border-6 border-red-900/40 bg-red-900/40;
 }

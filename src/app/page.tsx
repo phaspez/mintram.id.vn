@@ -140,9 +140,9 @@ export default async function Home() {
               <div className="flex gap-2 justify-center items-center text-center">
                 <p className="p-0 m-0">Guest Counter</p>
                 <div>
-                  <a href="http://guestscounter.com" className="relative h-5">
+                  <a href="https://guestscounter.com" className="relative h-5">
                     <img
-                      src={`http://guestscounter.com/count.php?c_style=49&id=1767699326&ts=${Math.floor(Date.now() / 3600000)}`}
+                      src={`https://guestscounter.com/count.php?c_style=49&id=1767699326&ts=${Math.floor(Date.now() / 3600000)}`}
                       alt="free hits count GuestCounter.com"
                     />
                   </a>

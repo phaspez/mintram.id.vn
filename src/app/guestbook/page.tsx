@@ -13,7 +13,10 @@ export default function Main() {
           <span className="text-gray-400/40">]</span>
         </span>
       </Link>
-      <h1 className="text-3xl font-bold decorative-text">guestbook</h1>
+      <h1 className="text-3xl font-bold decorative-text">
+        <span className="sm:hidden">gstbk</span>
+        <span className="hidden sm:inline">guestbook</span>
+      </h1>
       <p>Chat with others! Share your deepest secrets!</p>
       <div className="h-[1024px]">
         <iframe

@@ -16,7 +16,7 @@ export default async function Page() {
       </Link>
 
       <h1 className="text-3xl font-bold decorative-text">
-        <span className="sm:hidden">proj.</span>
+        <span className="sm:hidden">prjcts</span>
         <span className="hidden sm:inline">projects</span>
       </h1>
 

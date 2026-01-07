@@ -84,7 +84,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
           // Generate highlighted HTML with Shiki
           const html = await codeToHtml(code, {
             lang: language,
-            theme: "github-dark", // or 'github-light', 'dracula', 'nord', etc.
+            theme: "red", // or 'github-light', 'dracula', 'nord', etc.
           });
 
           // Create a wrapper div and insert the highlighted code
@@ -124,7 +124,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
           // Generate highlighted HTML with Shiki for inline code
           const html = await codeToHtml(code, {
             lang: language,
-            theme: "github-dark",
+            theme: "red",
           });
 
           // Extract just the code part without the pre wrapper
@@ -312,7 +312,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
           ref={contentRef}
           className={
             (toc.length > 0 ? "md:w-3/4" : "w-full") +
-            " blog-content text-justify w-full bg-black p-4"
+            " blog-content text-justify w-full bg-[#09090b] rounded-md p-4"
           }
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />

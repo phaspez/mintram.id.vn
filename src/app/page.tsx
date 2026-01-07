@@ -3,12 +3,12 @@ import Secrets from "@/components/secrets";
 import { lazy } from "react";
 import Link from "next/link";
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa6";
-import ShikiHighlighter from "@/components/ShikiHighlighter";
 import Image from "next/image";
 import "./globals.css";
 import { Mail } from "lucide-react";
 import { NeonFlickerText } from "@/components/NeonFlicker";
 import CoolSites from "@/components/cool-sites";
+import { codeToHtml } from "shiki";
 
 const Decor = lazy(() => import("@/app/decor"));
 
@@ -32,6 +32,14 @@ export const metadata = {
 };
 
 export default async function Home() {
+  const html = await codeToHtml(
+    `<a href='https://mintram.id.vn/'>\n\t<img src='https://mintram.id.vn/hello.gif' alt='phaspez'>\n</a>`,
+    {
+      lang: "html",
+      theme: "red",
+    },
+  );
+
   return (
     <>
       <Secrets />
@@ -113,7 +121,7 @@ export default async function Home() {
                   Feel free to hit me up! Please do hotlink my site, it&apos;s
                   fine!
                 </sub>
-                <div className="flex items-center p-0 gap-1 overflow-x-scroll">
+                <div className="flex items-center p-0 gap-1 overflow-x-clip">
                   <Link href="https://mintram.id.vn/">
                     <Image
                       src={"/hello.gif"}
@@ -123,10 +131,9 @@ export default async function Home() {
                       className="min-w-[88px] min-h-[31px]"
                     />
                   </Link>
-                  <ShikiHighlighter
-                    code={`<a href='https://mintram.id.vn/'>\n\t<img src='https://mintram.id.vn/hello.gif' alt='phaspez'>\n</a>`}
-                    lang="html"
-                    theme="red"
+                  <div
+                    className="overflow-x-auto"
+                    dangerouslySetInnerHTML={{ __html: html }}
                   />
                 </div>
               </article>
@@ -135,7 +142,7 @@ export default async function Home() {
                 <div>
                   <a href="http://guestscounter.com" className="relative h-5">
                     <img
-                      src="http://guestscounter.com/count.php?c_style=49&id=1767699326"
+                      src={`http://guestscounter.com/count.php?c_style=49&id=1767699326&ts=${Math.floor(Date.now() / 3600000)}`}
                       alt="free hits count GuestCounter.com"
                     />
                   </a>
@@ -154,7 +161,7 @@ export default async function Home() {
               </Link>
 
               <Link
-                href={"/project"}
+                href={"/projects"}
                 className="underline decorative-text text-md md:text-xl"
                 aria-keyshortcuts="p"
               >
@@ -183,7 +190,17 @@ export default async function Home() {
                 <span>T</span>
                 <span className="text-gray-400/40 select-none">]</span>BOOK
               </Link>
-              <Link href={"/changelog"}>Changelog</Link>
+              {/* <Link href={"/changelog"}>Changelog</Link> */}
+
+              <Link
+                href={"/changelog"}
+                className="underline decorative-text text-md md:text-xl"
+                aria-keyshortcuts="c"
+              >
+                <span className="text-gray-400/40 select-none">[</span>
+                <span>C</span>
+                <span className="text-gray-400/40 select-none">]</span>HANGELOG
+              </Link>
             </div>
           </div>
         </main>

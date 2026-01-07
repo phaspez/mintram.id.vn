@@ -10,21 +10,11 @@ export default function Decor() {
       aria-hidden
       role="presentation"
     >
-      {/* <div className="text-[22.25rem] fixed text-outline-blue -rotate-6">
-        <span aria-hidden role={"presentation"}>
-          Phaspez
-        </span>
-      </div> */}
       <div className="text-[12.25rem] fixed text-outline-green -rotate-6">
         <span aria-hidden role={"presentation"}>
           パスペス
         </span>
       </div>
-      {/* <div className="text-[22.25rem] fixed text-outline-blue right-[64px] bottom-[156px] rotate-12">
-        <span aria-hidden role={"presentation"}>
-          MinTram
-        </span>
-      </div> */}
       <div className="text-[12.25rem] fixed text-outline-green top-[612px] -rotate-6">
         <span aria-hidden role={"presentation"}>
           トリミン
@@ -68,11 +58,6 @@ export default function Decor() {
         pointer-events-none h-[1024px] w-[82px] opacity-10 animate-bg-pan"
         aria-hidden
       />
-      {/* <div
-        className="fixed bottom-0 left-[872px] bg-[url('/img_3.png')] bg-center bg-contain
-        pointer-events-none h-[224px] w-[264px] opacity-10 animate-bg-pan"
-        aria-hidden
-      /> */}
     </div>
   );
 }

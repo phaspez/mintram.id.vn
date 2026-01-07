@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Main() {
   return (
-    <div>
+    <div className="overflow-x-clip">
       <BlogDecor />
       <Link href={"/"} className="span-icon-text">
         <Home />
@@ -13,7 +13,10 @@ export default function Main() {
           <span className="text-gray-400/40">]</span>
         </span>
       </Link>
-      <h1 className="text-3xl font-bold decorative-text">changelog</h1>
+      <h1 className="text-3xl font-bold decorative-text">
+        <span className="sm:hidden">chng log</span>
+        <span className="hidden sm:inline">changelog</span>
+      </h1>
       <p>History and stuff for bookkeeping</p>
 
       <article>

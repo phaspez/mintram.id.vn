@@ -19,8 +19,9 @@ export default function KeyboardShortcuts() {
 
       const k = e.key.toLowerCase();
       if (k === "b") router.push("/blog");
-      else if (k === "p") router.push("/project");
+      else if (k === "p") router.push("/projects");
       else if (k == "t") router.push("/guestbook");
+      else if (k == "c") router.push("/changelog");
       else if (k === "g") window.open("https://phaspez.itch.io", "_blank");
       else if (k === "l")
         window.open("https://www.linkedin.com/in/trimin-tram/", "_blank");

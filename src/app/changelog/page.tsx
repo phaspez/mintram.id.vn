@@ -2,6 +2,24 @@ import BlogDecor from "@/components/blog-decor";
 import { Home } from "lucide-react";
 import Link from "next/link";
 
+export const metadata = {
+  title: "changelog | mintram",
+  description: "changed things.",
+  openGraph: {
+    title: "changelog | projects",
+    description: "changed things.",
+    type: "website",
+    url: "https://mintram.id.vn",
+    images: [
+      {
+        url: "/webcover.png",
+        width: 400,
+        height: 400,
+      },
+    ],
+  },
+};
+
 export default function Main() {
   return (
     <div className="overflow-x-clip">

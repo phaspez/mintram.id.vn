@@ -6,7 +6,7 @@ import PostsWithFilter from "@/components/PostsWithFilter";
 
 export const metadata = {
   title: "blog | mintram",
-  description: "blog written in markdown.",
+  description: "my blog and whatever i feel like writing.",
 };
 
 export default async function PostsPage() {

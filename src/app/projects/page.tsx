@@ -3,6 +3,24 @@ import Image from "next/image";
 import { Home } from "lucide-react";
 import BlogDecor from "@/components/blog-decor";
 
+export const metadata = {
+  title: "projects | mintram",
+  description: "my cool projects.",
+  openGraph: {
+    title: "projects | mintram",
+    description: "my cool projects.",
+    type: "website",
+    url: "https://mintram.id.vn",
+    images: [
+      {
+        url: "/webcover.png",
+        width: 400,
+        height: 400,
+      },
+    ],
+  },
+};
+
 export default async function Page() {
   return (
     <div>
@@ -32,9 +50,9 @@ export default async function Page() {
               a college institution.
             </p>
             <p>
-              e There would be a backend for training models and a database of
-              FAQ from the institution. But it isn&apos;t deployed yet, for now,
-              it forwarded all questions to an LLM.
+              There would be a backend for training models and a database of FAQ
+              from the institution. But it isn&apos;t deployed yet, for now, it
+              forwarded all questions to an LLM.
             </p>
             <p>
               Front-end → CAAS system (return related information) → forward it

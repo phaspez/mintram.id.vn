@@ -17,7 +17,7 @@ export const metadata = {
   description: "very cool site here.",
   openGraph: {
     title: "mintram | inthemiddle",
-    description: "i like to make software.",
+    description: "i like to make fun stuff.",
     type: "website",
     url: "https://mintram.id.vn",
     images: [
@@ -25,7 +25,7 @@ export const metadata = {
         url: "/webcover.png",
         width: 400,
         height: 400,
-        alt: "mintram, a website about everything, and nothing",
+        alt: "mintram, my personal website",
       },
     ],
   },

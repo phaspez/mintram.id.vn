@@ -3,26 +3,30 @@ title: "How I made an online leaderboard in Godot"
 date: "2025-12-08"
 excerpt: "It's actually super short"
 coverImage: "/images/leaderboard/leaderboard.png"
-tags: ["gamedev"]
+tags: ["gamedev", "tutorial"]
 ---
 
-so uhh in this guide i will try to make it as simple as possible with code examples.
+so in this guide i will try to make it as simple as possible with code examples on implementing an online leaderboard in a simple
+Godot web game.
 
 ![](/images/leaderboard/leaderboard.png)
 
 this is the approach that i used for the game [Makeshift](https://phaspez.itch.io/makeshift)
 
-##### prerequisites
+## prerequisites
 
-you should have some basic experience with SQL databases (what is a table? primary key? basic data types?), especially Postgres,
-HTTP requests (what is CRUD? HTTP request methods?), and Godot (what is a signal? binding a func to a signal?).
+you should have some basic experiences with these concepts:
+
+- SQL databases (what is a table? primary key? basic data types?), especially Postgres
+- HTTP requests (what is CRUD? HTTP request methods?)
+- and Godot of course (what is a signal? binding a func to a signal?)
 
 ## setting up your Supabase instance
 
 ### create an account and a table
 
-it's free for small usage or if you just want to test things out! it's simply a Postgres database where when you create tables,
-it automatically creates API endpoints for them.
+it's free for small usage or if you just want to test things out! it's simply a Postgres database that when you create tables,
+it automatically creates API endpoints for them. head over to [Supabase](https://supabase.com/) and do the following steps:
 
 - register an account
 - create a new project
@@ -32,18 +36,18 @@ it automatically creates API endpoints for them.
 
 ![](/images/leaderboard/create_new.png)
 
-now you'd have to create a leaderboard table, with at least a unique user ID and a score. in my game, i have
-an `id`, `last_submit`, `user_name`, and `score` column with datatypes of `uuid`, `timestamptz`,
-`varchar` and `float4` respectively. be careful that your table name is case-sensitive; in my case i named it Leaderboard. this
-is important later on.
+after that, you need to create a leaderboard table, with at least a unique user ID and a score. in my game, i have
+an `id`, `last_submit`, `user_name`, and a `score` column with datatypes of `uuid`, `timestamptz`,
+`varchar` and `float4` respectively. be careful that your table name is case sensitive; in my case i named it Leaderboard. this
+is important because endpoints are case sensitive.
 
 `id` and `last_submit` won't have a default value since they will be created in the game client
-and then sent back. just simply clear them for now.
+and then sent back to the database. just simply clear the default value for now.
 
 ### update RLS policies
 
 Row Level Security policy means you can control what types of users can edit or view your tables. in the Table Editor, there's your table in each tab. and there's also a 'RLS policies' button on your table tab. create three policies:
-enable Insert, Select and Update for everyone. you can set target roles to either anon or public; anon users require an
+enable Insert, Select and Update for everyone. you can set Target Roles to either anon or public; anon users require an
 auth key to access it, which i'll be using later on.
 
 ![](/images/leaderboard/rls.png)
@@ -66,13 +70,13 @@ your API endpoint is found at Settings > Data API.
 ### making a Supabase wrapper node
 
 now this is where it gets complicated. if you want to release the game in the browser, there's this very
-annoying CORS policy that blocks requests when it's used on the browser, which would work normally if you just
-use a native app. the HTTPRequest node in Godot has this restriction.
+annoying CORS policy that blocks requests, which would work normally if you just
+use a native app or test the game right on Godot. the `HTTPRequest` node in Godot has this restriction.
 
-in order to bypass it, you have to use HTTPClient, which is a low level native socket. this makes the
-code a lot more bloated. i have no idea why HTTPClient works and HTTPRequest doesn't on my machine :(
+in order to bypass it, you have to use `HTTPClient`, which is a low level native socket. this makes the
+code a lot more bloated. i have no idea why `HTTPClient` works and HTTPRequest doesn't on my machine :(
 
-create a new script called supabase.gd, then paste this in, replace the const strings with your actual values:
+create a new script called `supabase.gd`, then paste this in, replace the const strings with your actual values:
 
 ```gdscript
 class_name Supabase extends Node
@@ -243,13 +247,12 @@ static func convert_utc_string_to_local(utc_string: String) -> String:
 
 ```
 
-that's lengthy! here's the summary:
+that's lengthy! here's the summary of the above script:
 
-- the `get_leaderboard` calls `_fetch_leaderboard_async`, which creates a new request, assembles the request header,
-  actually makes the request, parses the body, then fires a signal that contains an array of dictionaries. you can then
+- the `get_leaderboard` and `_fetch_leaderboard_async`, which creates a new request, assembles the request header, makes the request,
+  parses the body, then fires a signal that contains an array of dictionaries. you can then
   use that to display the data in the game.
-- the `submit_score` takes in player UUID, score, and name. it assembles the request body then passes it to
-  `_submit_score_async` which is similar to the above async function.
+- the `submit_score` adn `_submit_score_async` takes in player UUID, score, and name. it also works similarly to the above functions
 - `get_postgres_timestamp_utc` creates a timestamptz string for postgres.
 - `convert_utc_string_to_local` converts the string from the above function to your local machine's timezone.
 - when making requests, `?order=score.desc` means order by the score column in descending order. you can also sort multiple
@@ -258,18 +261,21 @@ that's lengthy! here's the summary:
   if you submit with an existing `id`, instead of throwing an error, it updates the existing row. this is called an upsert (update + insert).
   without it, submitting the same id twice would fail.
 
-you just need to call `get_leaderboard` and `submit_score`, then connect the signal somewhere that responds to these events.
+basically, you just need to call `get_leaderboard` and `submit_score`, then connect the signal `leaderboard_fetched` and `score_submitted` some nodes
+that respond to these events! which the later Godot section is about.
 
-if you dont need to deal with time, just remove anything related to those, like those two static functions and the timestamp in the request body.
+if you dont need to deal with time or want to know when a player submits the score, just remove anything related to time, like those two
+static functions and the timestamp in the request body.
 
 remember that tables are case sensitive, in my case i have Leaderboard capitalized, so the endpoint is `/rest/v1/Leaderboard`;
 replace it with your own name.
 
 ### create a unique player ID
 
-you'd need to create the player's ID and save it in your game save file. here's a script to generate a random UUID. the chance of
+you need to create the player's ID and save it in your game save file. here's a script to generate a random UUID. the chance of
 a collision is astronomically tiny so you likely won't need to worry about it. just paste the file somewhere in your
-project, call `UUID.uuid4()` and you have a unique ID! it's just a static function that returns a unique string. just to be extra careful, please call `randomize()` somewhere before this to change the seed.
+project, call `UUID.uuid4()` and you have a unique ID! it's just a static function that returns a unique string. just to be extra careful,
+please call `randomize()` somewhere before this to change the seed.
 
 in case you need to know how to save files in Godot, follow the [Saving games](https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html) doc.
 
@@ -293,7 +299,8 @@ static func uuid4() -> String:
     return result
 ```
 
-if you have an existing save file, i guess updating it is relatively simple too. here's how mine works:
+if you have an existing save file, i guess updating it is relatively simple too. here's how i implemented it using `PlayerData extends Resource`
+as save files. `SAVE_FILE_PATH` is just a const string in the `user:\\` directory
 
 ```gdscript
 func load_or_create_player_data() -> PlayerData:
@@ -304,7 +311,7 @@ func load_or_create_player_data() -> PlayerData:
                 data.player_uuid = UUID.uuid4()
                 print("Fixed missing UUID in existing save: %s" % data.player_uuid)
                 player_data = data
-                save_player_data() # Save the fix
+                save_player_data()
             return data
 
     print("No save file found. Creating new profile...")
@@ -316,17 +323,25 @@ func load_or_create_player_data() -> PlayerData:
     save_player_data()
     print("Created and Saved new Player UUID: %s" % new_data.player_uuid)
     return new_data
+
+### save_player_data() simply saves the file at SAVE_FILE_PATH
 ```
 
-it simply checks if the save file exists, loads that, then checks inside it whether a UUID exists or not. if not, it creates one then saves.
+it simply checks if the save file exists, loads that, then checks inside it whether a UUID exists or not in the file. if not, it creates one then saves. i
+suppose it would be similar if you save it with the JSON approatch as well. you would likely use this for an autoload script.
 
 ### display and submit the score
 
-you already have a signal that emits an Array of Dictionaries, just connect it somewhere to use it. you can have multiple Supabase nodes anywhere if you like.
+there is a signal that emits an Array of Dictionaries in the Supabase node, just connect it somewhere to use it, for example:
 
 ```gdscript
 ### leaderboard_list.gd
 ...
+@onready var supabase: Supabase = $Supabase
+
+func _ready():
+    supabase.leaderboard_fetched.connect(_on_leaderboard_fetched)
+
 func _on_leaderboard_fetched(leaderboard_data: Array) -> void:
     var rank: int = 1
     for entry in leaderboard_data:
@@ -343,13 +358,11 @@ func _on_leaderboard_fetched(leaderboard_data: Array) -> void:
 
         rank += 1
     leaderboard_refreshed.emit()
-
-
-## in your ui script:
-supabase.leaderboard_fetched.connect(_on_leaderboard_fetched)
 ```
 
-in my case, for each item, i create a custom `LeaderboardEntry` node, which is an individual line that displays it.
+in my case, for each item, i create a custom `LeaderboardEntry` node, which is an individual line that displays each player record.
+the `setup` function simply displays them with the given data. like this, i also highlight the record if it match the ones in
+the entry:
 
 ```gdscript
 ### leaderboard_entry.gd
@@ -365,38 +378,42 @@ func setup(rank: int, username_text: String, time_text: String, score_value: Str
         rank_label.add_theme_color_override("font_color", Color.BLACK)
 ```
 
-the `setup` function simply displays them using local time.
+this is how i did the submit feature. basically you need an input field to enter the username, and that's it! you have a simple
+leaderboard!
 
 ```gdscript
 ### leaderboard.gd
 ...
+@onready var user_line_edit: LineEdit: = $UsernameLineEdit
+
+var total_score: float
+
 func _on_submit_pressed() -> void:
     var username: String = username_line_edit.text.strip_edges()
     if username == "":
         username = "Anonymous"
 
+    # i suppose you calculated the score somewhere, then pass in as total_score
     supabase.submit_score(GameManager.player_data.player_uuid, total_score, username)
     submit_button.disabled = true
     username_line_edit.editable = false
 
     await supabase.score_submitted
-    leaderboard.refresh_leaderboard()
+    # this simply deletes all entries, then call supabase.get_leaderboard()
+    refresh_leaderboard()
 ```
-
-this is how i did the submit. `username_line_edit` is a LineEdit that takes the username, and that's it! you have a simple
-leaderboard!
 
 ## what's next
 
-there's a lot of things i stripped out. for example, validating your username. what if they type in an empty string? what if the hi-score
-is zero? what if they use profanity?
+there's a lot of things i stripped out. for example, validating your username. what if they type in an empty string, the hi-score
+is zero or they use profanity words as usernames? there are a lot of edge cases like these, but to be honest for a simple web game
+it shouldn't matter that much. the main thing you should do is focus on your game.
 
-there are a lot of edge cases like these, but to be honest for a simple web game it shouldn't matter that much. the main thing you
-should do is focus on your game.
+if you want to be fancy, you can also try to implement a loading state that appears while the list is being fetched
 
 you can also do all sort of cloud saving and online services with it too! it's basically like a website with CRUD functionality
 now that i think about it.
 
 thanks for scrolling all the way to this, good luck!
 
-- mintram.
+mintram.

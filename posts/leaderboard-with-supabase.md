@@ -249,12 +249,12 @@ static func convert_utc_string_to_local(utc_string: String) -> String:
 
 that's lengthy! here's the summary of the above script:
 
-- the `get_leaderboard` and `_fetch_leaderboard_async`, which creates a new request, assembles the request header, makes the request,
+- the `get_leaderboard` calls down to `_fetch_leaderboard_async`, which creates a new request, assembles the request header, makes the request,
   parses the body, then fires a signal that contains an array of dictionaries. you can then
   use that to display the data in the game.
-- the `submit_score` adn `_submit_score_async` takes in player UUID, score, and name. it also works similarly to the above functions
+- the `submit_score` and `_submit_score_async` take in player UUID, score, and name. they also work similarly to the above functions
 - `get_postgres_timestamp_utc` creates a timestamptz string for postgres.
-- `convert_utc_string_to_local` converts the string from the above function to your local machine's timezone.
+- `convert_utc_string_to_local` converts the timestamptz string from the above function to your local machine time.
 - when making requests, `?order=score.desc` means order by the score column in descending order. you can also sort multiple
   columns, just replace it with something like `?order=score.desc,last_submit.desc`
 - `Prefer: resolution=merge-duplicates` is a header that tells Supabase how to handle conflict when inserting data. in this case
@@ -272,12 +272,13 @@ replace it with your own name.
 
 ### create a unique player ID
 
-you need to create the player's ID and save it in your game save file. here's a script to generate a random UUID. the chance of
+you need to create the player ID and save it in your game save file. here's a script to generate a random UUIDv4. the chance of
 a collision is astronomically tiny so you likely won't need to worry about it. just paste the file somewhere in your
-project, call `UUID.uuid4()` and you have a unique ID! it's just a static function that returns a unique string. just to be extra careful,
-please call `randomize()` somewhere before this to change the seed.
-
-in case you need to know how to save files in Godot, follow the [Saving games](https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html) doc.
+project, call `UUID.uuid4()` and you have a unique ID! it's just a static function that returns a unique string.
+courtesy to [dwalter](https://gist.github.com/dwalter/49599350212d154f7b7746459e3cb611).
+or you can use this [addon](https://github.com/binogure-studio/godot-uuid) as well.
+just to be extra careful, please call `randomize()` somewhere before this to change the seed because the randomness depends entirely
+on the `randi()` function.
 
 ```gdscript
 ### uuid.gd
@@ -299,8 +300,10 @@ static func uuid4() -> String:
     return result
 ```
 
+in case you need to know how to save files in Godot, follow the [Saving games](https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html) doc.
+
 if you have an existing save file, i guess updating it is relatively simple too. here's how i implemented it using `PlayerData extends Resource`
-as save files. `SAVE_FILE_PATH` is just a const string in the `user:\\` directory
+as save file. `SAVE_FILE_PATH` is just a const string in the `user:\\` directory
 
 ```gdscript
 func load_or_create_player_data() -> PlayerData:
@@ -332,12 +335,12 @@ suppose it would be similar if you save it with the JSON approatch as well. you 
 
 ### display and submit the score
 
-there is a signal that emits an Array of Dictionaries in the Supabase node, just connect it somewhere to use it, for example:
+there is a signal that emits an Array of Dictionaries in the `Supabase` node, just connect it somewhere to use it, for example:
 
 ```gdscript
 ### leaderboard_list.gd
 ...
-@onready var supabase: Supabase = $Supabase
+@export var supabase: Supabase
 
 func _ready():
     supabase.leaderboard_fetched.connect(_on_leaderboard_fetched)

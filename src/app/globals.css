@@ -177,7 +177,7 @@ textarea {
 }
 
 a {
-  @apply text-[#6ab0ff] no-underline hover:underline flex items-center;
+  @apply text-[#6ab0ff] no-underline hover:underline flex items-center inline;
 }
 
 .link-red a {
@@ -260,33 +260,8 @@ sub {
   animation-delay: -0.3s;
 }
 
-.blog-content h1 {
-  color: #fcf8f8;
-}
-
-.blog-content h2 {
-  color: #fbefef;
-}
-
-.blog-content h3 {
-  color: #f9dfdf;
-}
-
-.blog-content h4 {
-  color: #f5afaf;
-}
-
-.blog-content h5 {
-  color: #fdacac;
-}
-
-.blog-content a {
-  display: inline;
-}
-
-.blog-content code,
-.blog-content pre code {
-  color: #ffffff;
+.shiki-inline .line {
+  @apply font-mono;
 }
 
 ::-webkit-scrollbar {

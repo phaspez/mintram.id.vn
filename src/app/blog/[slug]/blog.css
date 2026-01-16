@@ -1,0 +1,47 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss";
+@import "tailwindcss/utilities.css" layer(utilities);
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
+
+@layer utilities {
+  #blog :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-mono mb-0 pb-0 pt-6 pb-1;
+  }
+
+  .blog-content code,
+  .blog-content pre code {
+    color: #ffffff;
+    @apply font-mono;
+  }
+}
+
+#blog h1 {
+  /* color: #fcf8f8; */
+  @apply text-zinc-200;
+}
+
+#blog h2 {
+  /* color: #fbefef; */
+  @apply text-zinc-300;
+}
+
+#blog h3 {
+  /* color: #f9dfdf; */
+  @apply text-zinc-400;
+}
+
+#blog h4 {
+  /* color: #f5afaf; */
+  @apply text-zinc-500;
+}
+
+#blog h5 {
+  /* color: #fdacac; */
+  @apply text-zinc-600;
+}
+
+.blog-content a {
+  display: inline;
+}

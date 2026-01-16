@@ -3,6 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
 import { codeToHtml } from "shiki";
+import { Source_Serif_4 } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import "./blog.css";
+
+export const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"], // choose weights you need
+  variable: "--font-source-serif",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 interface SanitizedBlogProps {
   content: string;
@@ -276,7 +290,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
   }, [sanitizedContent]);
 
   return (
-    <div>
+    <article>
       <div className="flex flex-col md:flex-row gap-8 pr-6">
         {toc.length > 0 && (
           <div className="md:w-1/4">
@@ -309,17 +323,21 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
         )}
 
         <div
+          id="blog"
           ref={contentRef}
           className={
             (toc.length > 0 ? "md:w-3/4" : "w-full") +
-            " blog-content text-justify w-full bg-[#09090b] rounded-md p-4"
+            " blog-content text-justify w-full bg-[#09090b] rounded-md p-4 " +
+            sourceSerif.className +
+            " py-6 " +
+            jetbrainsMono.variable
           }
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
       </div>
-      <div className="py-6">
+      <div>
         <div ref={giscusRef} className="mt-8 md:w-3/4 giscus" />
       </div>
-    </div>
+    </article>
   );
 }

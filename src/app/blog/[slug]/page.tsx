@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Home, Newspaper } from "lucide-react";
 import type { Metadata } from "next";
-//import ServerBlogContent from "@/components/ServerBlogContent";
 
 export async function generateStaticParams() {
   const posts = getAllPostSlugs();

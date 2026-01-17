@@ -6,6 +6,7 @@ import { codeToHtml } from "shiki";
 import { Source_Serif_4 } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
 import "./blog.css";
+import { Post } from "@/lib/posts";
 
 export const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
@@ -19,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 interface SanitizedBlogProps {
-  content: string;
+  post: Post;
 }
 
 interface TocItem {
@@ -36,7 +37,8 @@ function slugify(text: string) {
     .replace(/\s+/g, "-");
 }
 
-export default function SanitizedBlog({ content }: SanitizedBlogProps) {
+export default function SanitizedBlog({ post }: SanitizedBlogProps) {
+  const { content, date, tags } = post;
   const [sanitizedContent, setSanitizedContent] = useState("");
   const [toc, setToc] = useState<TocItem[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -289,35 +291,78 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [sanitizedContent]);
 
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
+    const header = document.querySelector("#blog-header") as HTMLElement;
+    if (header) {
+      setHeaderHeight(header.offsetHeight + header.offsetTop);
+    }
+  }, []);
+
   return (
     <article>
-      <div className="flex flex-col md:flex-row gap-8 pr-6">
+      <div className="flex flex-col md:flex-row gap-0 pr-6">
         {toc.length > 0 && (
-          <div className="md:w-1/4">
-            <div className="sticky top-4 pt-2 md:pt-14 md:min-h-screen md:border-r-2">
-              <h3 className="text-lg font-semibold mb-2">Table of Contents</h3>
-              <nav className="">
-                <ul className="space-y-1">
+          <div className="md:w-1/4 md:pt-8">
+            <div
+              className="border bg-background border-red-900/60 md:border-r-0 md:sticky"
+              style={{ top: `${headerHeight + 16}px` }}
+            >
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">
+                  Table of Contents
+                </h3>
+                <div className="grid gap-2">
                   {toc.map((item) => (
-                    <li
-                      className="list-none"
+                    <a
                       key={item.id}
                       style={{
-                        paddingLeft: `${(item.level - 1) * 0.5}rem`,
-                        fontSize: `${Math.max(0.9 - (item.level - 1) * 0.05, 0.7)}rem`,
+                        paddingLeft: `${(item.level - 1) * 0.7}rem`,
+                        fontSize: `${Math.max(1.0 - (item.level - 1) * 0.1, 0.7)}rem`,
                       }}
+                      href={`#${item.id}`}
+                      onClick={(e) => handleTocClick(e, item.id)}
+                      className="block"
                     >
-                      <a
-                        href={`#${item.id}`}
-                        onClick={(e) => handleTocClick(e, item.id)}
-                        className="text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors"
-                      >
-                        {item.text}
-                      </a>
-                    </li>
+                      {item.text}
+                    </a>
                   ))}
-                </ul>
-              </nav>
+                </div>
+              </div>
+
+              <div className="flex gap-2 border-t border-red-900/60 p-4 space-y-1 text-sm">
+                <a
+                  href="#"
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
+                  className="block"
+                >
+                  back to top
+                </a>
+                <span className="flex-grow" />
+                <a href="#giscus" className="block">
+                  comments
+                </a>
+              </div>
+
+              <div className="flex items-center gap-2 p-4 pt-0 text-sm">
+                {tags?.length > 0 && (
+                  <div className="flex flex-wrap gap-0 border-0 p-0">
+                    {tags.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2 text-center py-1 text-xs bg-blue-800 text-muted-foreground"
+                      >
+                        {"#" + t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <span className="flex-grow" />
+                <sub className="text-xs">{date}</sub>
+              </div>
             </div>
           </div>
         )}
@@ -326,8 +371,8 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
           id="blog"
           ref={contentRef}
           className={
-            (toc.length > 0 ? "md:w-3/4" : "w-full") +
-            " blog-content text-justify w-full bg-[#09090b] rounded-md p-4 " +
+            (toc.length > 0 ? "md:w-3/4 md:border" : "w-full") +
+            " blog-content text-justify w-full bg-background p-6 mt-8 border-red-900/70 " +
             sourceSerif.className +
             " py-6 " +
             jetbrainsMono.variable
@@ -336,7 +381,7 @@ export default function SanitizedBlog({ content }: SanitizedBlogProps) {
         />
       </div>
       <div>
-        <div ref={giscusRef} className="mt-8 md:w-3/4 giscus" />
+        <div id="giscus" ref={giscusRef} className="mt-8 md:w-3/4 giscus" />
       </div>
     </article>
   );

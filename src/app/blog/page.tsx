@@ -31,7 +31,6 @@ export default async function PostsPage() {
         theories, you name it.
       </p>
 
-      {/* Client component handles tag selection & filtering */}
       <PostsWithFilter posts={posts} tags={tags} />
     </div>
   );

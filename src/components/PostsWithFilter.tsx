@@ -30,30 +30,31 @@ export default function PostsWithFilter({
   return (
     <div>
       <TagFilter tags={tags} selected={selectedTag} onSelect={setSelectedTag} />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:my-16 my-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1px] md:my-16 my-8 bg-red-900/60 border border-red-900/60">
         {filtered.map((post) => (
-          <div key={post.slug} className="">
-            <div className="h-full w-full p-4 not-prose border-3 border-red-900/40 hover:border-red-900/70 hover:bg-red-900/70 transition-colors">
-              <div className="flex justify-between items-center mb-2">
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                <p>{post.date}</p>
-              </div>
-              <p className="leading-relaxed line-clamp-4 text-muted-foreground">
-                {post.excerpt}
-              </p>
-              {post.tags?.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {post.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-1 text-sm bg-blue-800 text-muted-foreground"
-                    >
-                      {"#" + t}
-                    </span>
-                  ))}
-                </div>
-              )}
+          <div
+            key={post.slug}
+            className="p-4 not-prose bg-background hover:bg-red-900/70 transition-colors"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+              <p>{post.date}</p>
             </div>
+            <p className="leading-relaxed line-clamp-4 text-muted-foreground text-sm">
+              {post.excerpt}
+            </p>
+            {post.tags?.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-0 border-0 p-0">
+                {post.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="px-2 py-1 text-xs bg-blue-800 text-muted-foreground"
+                  >
+                    {"#" + t}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>

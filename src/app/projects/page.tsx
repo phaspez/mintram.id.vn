@@ -38,8 +38,8 @@ export default async function Page() {
         <span className="hidden sm:inline">projects</span>
       </h1>
 
-      <div className="grid gap-4">
-        <article className="lg:columns-2 columns-1 bg-orange-100 dark:bg-orange-600/20 p-4 rounded-md">
+      <div className="grid gap-[1px] bg-red-900/60 border border-red-900/60">
+        <article className="lg:columns-2 columns-1 bg-background p-4">
           <div>
             <h2 className="mt-2">
               CAAS - Chat-Voice Admissions Advisory Support
@@ -70,7 +70,7 @@ export default async function Page() {
           </div>
         </article>
 
-        <article className="lg:columns-2 lg:flex-row-reverse columns-1 bg-indigo-200 dark:bg-indigo-500/20 p-4 rounded-md">
+        <article className="lg:columns-2 columns-1 lg:flex-row-reverse bg-background p-4">
           <div className="flex justify-center items-center h-full">
             <Image
               src="/project/terraship.png"

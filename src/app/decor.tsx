@@ -21,7 +21,7 @@ export default function Decor() {
         </span>
       </div>
       <div className="fixed bg-container dark:bg-container-dark" />
-      <div className="fixed dotted lg:w-[716px] md:w-[384px] w-[256px] h-screen left-[12px] md:left-[64px] lg:left-[128px]" />
+      <div className="fixed dotted lg:w-[716px] md:w-[384px] w-[256px] h-screen left-[12px] md:left-[64px] lg:left-[888px]" />
       <Marquee
         speed={10}
         className="fixed w-screen h-[428px] top-[170px] sm:top-[212px]"
@@ -47,17 +47,17 @@ export default function Decor() {
           I like learning new technologies | Quá ghê gớm | Lorem Ipsum |
         </Marquee>
       </div>
-      <div className="fixed checkerboard w-[620px] h-18 top-[690px] px-[200px]" />
+      <div className="fixed checkerboard w-[1120px] h-18 top-[750px] px-[200px] py-[100px]" />
       <div
         className="fixed inset-0 bg-[url('/img_1.png')] bg-center bg-repeat-x bg-contain
         pointer-events-none w-[2024px] h-[64px] opacity-10"
         aria-hidden
       />
-      <div
+      {/* <div
         className="fixed top-0 right-[0px] bg-[url('/img_2.png')] bg-center bg-repeat-y bg-contain
         pointer-events-none h-[1024px] w-[82px] opacity-10 animate-bg-pan"
         aria-hidden
-      />
+      /> */}
     </div>
   );
 }

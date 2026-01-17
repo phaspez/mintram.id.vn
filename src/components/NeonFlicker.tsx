@@ -8,7 +8,7 @@ export const NeonFlickerText = ({ text }: { text: string }) => {
           <span
             className="neon-letter"
             key={index}
-            style={{ margin: "0 0.25em" }}
+            style={{ margin: "0 0.5em" }}
           >
             {" "}
           </span>

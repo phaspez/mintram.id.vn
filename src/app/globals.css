@@ -117,8 +117,8 @@
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: oklch(0.442 0.017 285.786);
 
-  --neon-glow-1: #132440;
-  --neon-glow-2: #f75270;
+  --neon-glow-1: #f75270;
+  --neon-glow-2: #da4f4f;
   --neon-glow-3: #bf092f;
 }
 
@@ -208,24 +208,26 @@ sub {
 
 @keyframes flicker {
   0%,
-  18%,
-  22%,
-  25%,
-  53%,
-  57%,
+  30%,
+  50%,
+  70%,
+  85%,
   100% {
     opacity: 1;
     text-shadow:
       0 0 6px var(--neon-glow-1),
-      0 0 12px var(--neon-glow-2),
-      0 0 24px var(--neon-glow-3);
-    filter: drop-shadow(0 0 8px var(--neon-glow-2));
+      0 0 20px var(--neon-glow-2),
+      0 0 40px var(--neon-glow-3);
+    filter: drop-shadow(0 0 6px var(--neon-glow-1))
+      drop-shadow(0 0 20px var(--neon-glow-2))
+      drop-shadow(0 0 40px var(--neon-glow-3));
   }
 
   /* --- FLICKER OFF --- */
   20%,
-  24%,
-  55% {
+  40%,
+  60%,
+  80% {
     opacity: 0;
     text-shadow: none;
     filter: none;
@@ -233,19 +235,19 @@ sub {
 }
 
 .neon-text {
-  color: transparent;
+  color: black;
   text-shadow:
     0 0 4px var(--neon-glow-1),
-    0 0 8px var(--neon-glow-2),
-    0 0 10px var(--neon-glow-3);
+    0 0 10px var(--neon-glow-2),
+    0 0 15px var(--neon-glow-3);
   display: inline-block;
 }
 
 .neon-text .neon-letter {
   display: inline-block;
   will-change: opacity, text-shadow, filter;
-  animation: flicker 2.5s infinite alternate;
-  animation-timing-function: ease-in-out;
+  animation: flicker 1.8s infinite alternate;
+  /* animation-timing-function: ease-out; */
 }
 
 .neon-text .neon-letter:nth-child(2n) {
@@ -284,4 +286,8 @@ sub {
 
 .article-panel {
   @apply border-6 border-red-900/40 bg-red-900/40;
+}
+
+::selection {
+  @apply bg-green-800 text-green-100;
 }

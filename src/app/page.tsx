@@ -59,8 +59,8 @@ export default async function Home() {
             <p className="pt-0 mt-0 decorative-text">phaspez</p>
           </span>
           <div className="flex flex-wrap w-full p-0">
-            <div className="order-1 lg:order-none grid grid-cols-1 gap-2">
-              <article className="text-wrap lg:w-[430px] p-3 lg:p-4 pb-0 link-red article-panel">
+            <div className="order-1 lg:order-none grid grid-cols-1 gap-[1px] bg-red-900/60 border border-red-900/60">
+              <article className="text-wrap lg:w-[430px] p-3 lg:p-4 pb-0 bg-background link-red">
                 <p>I make websites and games! I use React, Unity and Godot.</p>
                 <span className="flex flex-wrap gap-4 mt-3">
                   <Link
@@ -114,12 +114,11 @@ export default async function Home() {
                 </span>
               </article>
 
-              <article className="text-wrap lg:w-[430px] p-3 lg:p-4 article-panel">
+              <article className="text-wrap lg:w-[430px] p-3 lg:p-4 bg-background">
                 <p>Neighborhood</p>
                 <CoolSites />
                 <sub>
-                  Feel free to hit me up! Please do hotlink my site, it&apos;s
-                  fine!
+                  Feel free to hit me up and do hotlink my site, it&apos;s fine!
                 </sub>
                 <div className="flex items-center p-0 gap-1 overflow-x-clip">
                   <Link href="https://mintram.id.vn/">
@@ -137,6 +136,7 @@ export default async function Home() {
                   />
                 </div>
               </article>
+
               <div className="flex gap-2 justify-center items-center text-center">
                 <p className="p-0 m-0">Guest Counter</p>
                 <div>
@@ -149,6 +149,7 @@ export default async function Home() {
                 </div>
               </div>
             </div>
+
             <div className="flex flex-wrap order-0 lg:order-none justify-center w-full lg:w-min lg:grid content-start gap-4 pb-6 lg:pl-4 flex-none">
               <Link
                 href={"/blog"}
